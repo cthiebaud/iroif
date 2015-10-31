@@ -1,0 +1,8 @@
+title: i051108 
+author: i051108
+baseurl: / 
+exclude: 
+  - gulpfile.js
+
+# Build settings
+markdown: kramdown

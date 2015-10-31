@@ -1,0 +1,232 @@
+---
+title: Git
+layout: default
+---
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/normalize/2.1.0/normalize.css">
+<link rel="stylesheet" href="css/explaingit.css">
+
+<h1 style="display:inline-block;"></h1>
+<span class="dropdown">
+  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Change workflow</button>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenu1" style="font-family: monospace">
+    {% for files in site.data | sort: 'title' %}
+      <a class="dropdown-item" href="#" id="{{ files[0] }}">{{ files[0] }}</a>
+    {% endfor %}
+  </div>
+</span>
+
+<p> 
+  <div id="initialMessage"></div>
+</p>
+
+<p class="babar">
+    <button id="home" type="button" class="btn btn-link-outline disabled_at_start" disabled>
+        <i class="fa fa-home"></i>
+    </button>
+    <button id="prev" type="button" class="btn btn-link-outline disabled_at_start" disabled>
+        <span>undo</span>
+        <i class="fa fa-step-backward"></i>
+    </button>
+    <span id="step-index" class="label label-default">00</span>
+    <button id="next"type="button" class="btn btn-link-outline" disabled>
+        <i class="fa fa-step-forward"></i>
+        <span id="next-verb"></span>
+    </button>
+</p>
+
+<p>
+  <ol class="breadcrumb" style="margin-bottom: 5px;">
+  </ol>
+</p>
+
+<div class="concept-area">
+
+  <div id="ExplainGitFetch-Container" class="concept-container">
+    <div class="playground-container"></div>
+  </div>
+
+</div>
+
+<p>
+  <div class="alert alert-warning alert-dismissible fade in" role="alert" style="display:none">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+      <span class="sr-only">Close</span>
+    </button>
+    <strong>Holy guacamole!</strong> <span id="error"><span>>.
+  </div>
+</p>
+
+<svg version="1.1" baseProfile="full"
+     xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink"
+     xmlns:ev="http://www.w3.org/2001/xml-events"
+     width="0" height="0">
+
+    <marker id="triangle" refX="5" refY="5" markerUnits="strokeWidth" fill="#666"
+            markerWidth="4" markerHeight="3" orient="auto" viewBox="0 0 10 10">
+        <path d="M 0 0 L 10 5 L 0 10 z"/>
+    </marker>
+    <marker id="faded-triangle" refX="5" refY="5" markerUnits="strokeWidth" fill="#DDD"
+            markerWidth="4" markerHeight="3" orient="auto" viewBox="0 0 10 10">
+        <path d="M 0 0 L 10 5 L 0 10 z"/>
+    </marker>
+    <marker id="brown-triangle" refX="5" refY="5" markerUnits="strokeWidth" fill="#663300"
+            markerWidth="4" markerHeight="3" orient="auto" viewBox="0 0 10 10">
+        <path d="M 0 0 L 10 5 L 0 10 z"/>
+    </marker>
+</svg>
+
+<script data-main="js/main" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.4/require.min.js"></script>
+
+<script type="text/javascript">
+require(['explaingit'], function (explainGit) {
+
+      $( document ).ready(function() {
+
+      var sandBox;
+
+      var _configs_ = [
+        {% for files in site.data %}
+          {{ files | jsonify }} ,
+        {% endfor %}
+      ];
+
+      var item;
+      var configs = {};
+
+      _configs_.map(function(tuple) {
+        if (typeof item === "undefined") {
+          item = tuple[0];
+        }
+
+        configs[tuple[0]]=tuple[1];
+
+        $('#'+tuple[0]).on('click', function (e) {
+          item = this.id;
+          resetAndOpen(configs[item].config, true /* init steps also*/);
+        })
+
+      });
+
+      $('#dropdownMenu1').dropdown()
+
+      $( "#next" ).click(function(event) {
+          event.preventDefault();
+          $(".alert-warning").hide();
+          var curr = parseInt($("#step-index").text());
+          var steps = configs[item].steps;
+          if (typeof steps[curr].undo === "undefined") {
+              steps[curr].undo = $.extend(true, {}, configs[item].config);
+              steps[curr].undo.commitData = $.extend(true, [], sandBox.hv.commitData);
+              steps[curr].undo.currentBranch = sandBox.hv.currentBranch;
+          }
+          // logSteps();            
+          var next = setStep( curr + 1 );
+
+          try {
+            sandBox[steps[next].subject][steps[next].verb](steps[next].obj);
+          } catch (error) {
+            $(".alert-warning").show().children("span#error").text(error);
+          }
+          
+      });
+  
+      $( "#prev" ).click(function(event) {
+          event.preventDefault();
+          $(".alert-warning").hide();
+          var curr = parseInt($("#step-index").text());
+          var prev = setStep( curr - 1 );
+          var steps = configs[item].steps;
+          if (typeof steps[prev].undo !== "undefined") {
+              // logSteps();           
+              resetAndOpen(steps[prev].undo);
+          }
+      });
+  
+      function initSteps() {
+        $(".breadcrumb").empty();
+        var steps = configs[item].steps;
+        for (var index=1; index<steps.length; index++) {
+          var o = steps[index].obj ? (" '"+steps[index].obj+"'") : '';
+          $(".breadcrumb").append($("<li id='"+index+"'>").text(steps[index].verb + o));
+        }
+        $("#initialMessage").html(configs[item].config.initialMessage);
+        $("h1").text(configs[item].config.title);
+        setStep(0);
+      }
+
+      function pad(num, size) {
+          var s = num+"";
+          while (s.length < size) s = "0" + s;
+          return s;
+      }      
+  
+      function setStep(index) {
+        var steps = configs[item].steps;
+        if (index < 0 || steps.length <= index) {
+            index = 0;
+        }
+        if (index <= 0) { // no prev
+            $(".disabled_at_start").prop('disabled', true)
+        } else {
+            $(".disabled_at_start").prop('disabled', false)
+        }
+
+        if (steps.length -1 <= index) { // no next
+            $("#next").prop('disabled', true);
+            $("#next-verb").empty();
+        } else {
+            $("#next").prop('disabled', false);
+            $("#next-verb").text(steps[index+1].verb);
+        }
+        for (var i=1; i<steps.length; i++) {
+            var style = { 
+              color             : "black", 
+              "font-style"      : "normal", 
+              "text-decoration" : "none", 
+              "font-family"     : "monospace", 
+              "font-size"       : "smaller"};
+            if (i<=index) {
+                style["text-decoration"] = "line-through";
+            } else {
+                style.color = "gray";
+            }
+            if (i == index+1) {
+                style.color = "brown";
+                style["font-style"] = "italic";
+            }
+            $(".breadcrumb li#"+i).css(style);
+        }
+
+        $("#step-index").text(pad(index, 2));
+        return index;
+      }
+
+      function logSteps() {
+        var steps = configs[item].steps;
+        for (var s = 0; s < steps.length; s++) {
+            console.log(s, steps[s].undo);
+        }
+      }
+
+      function resetAndOpen(config, init_steps) {
+          $(".alert-warning").hide();
+          explainGit.reset();
+          sandBox = explainGit.open($.extend(true, {}, config));
+          if (init_steps) {
+            initSteps();
+          }
+      }
+      
+      $("#home").click(function (event ) {
+          event.preventDefault();
+          resetAndOpen(configs[item].config, true);
+      });
+
+      resetAndOpen(configs[item].config, true);
+    });
+
+});
+</script>

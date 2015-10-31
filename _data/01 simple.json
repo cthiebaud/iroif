@@ -1,0 +1,26 @@
+{
+  "config":{
+    "title": "Simple Workflow",
+    "name": "Fetch",
+    "height": 500,
+    "commitData": [
+       {"id": "e137e9b","tags": ["origin/master", "master"]}
+     ],
+    "originData": [
+       {"id": "e137e9b"},
+       {"id": "7eb7654","parent": "e137e9b","tags": ["master"]}
+    ],
+    "initialMessage": "et patati, et patata."
+  },
+  "steps":[
+    { "subject": "hv", "verb": "checkout", "obj": "master"},
+    { "subject": "cb", "verb": "fetch"},
+    { "subject": "hv", "verb": "merge",    "obj": "origin/master"},
+    { "subject": "hv", "verb": "commit"},
+    { "subject": "hv", "verb": "commit"},
+    { "subject": "hv", "verb": "reset", "obj" : "HEAD^"},
+    { "subject": "hv", "verb": "commit"},
+    { "subject": "cb", "verb": "push",     "obj": ["origin", "master"]},
+    { "subject": "cb", "verb": "fetch"},
+  ]
+}

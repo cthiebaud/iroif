@@ -1,0 +1,38 @@
+{
+  "config":{
+    "title": "Complex Workflow w/ Error",
+    "name": "Fetch",
+    "height": 500,
+    "commitData": [
+      {"id": "e137e9b","tags": ["origin/master"]},
+      {"id": "6ce726f","parent": "e137e9b"},
+      {"id": "bb92e0e","parent": "6ce726f","tags": ["master"]},
+      {"id": "0cff760","parent": "e137e9b","tags": ["origin/dev", "dev"]},
+     ],
+    "originData": [
+       {"id": "e137e9b"},
+       {"id": "7eb7654","parent": "e137e9b"},
+       {"id": "090e2b8","parent": "7eb7654"},
+       {"id": "ee5df4b","parent": "090e2b8","tags": ["master"]},
+       {"id": "0cff760","parent": "e137e9b"},
+       {"id": "2f8d946","parent": "0cff760"},
+       {"id": "29235ca","parent": "2f8d946","tags": ["dev"]}
+    ],
+    "initialMessage": "blah"
+  },
+  "steps":[
+    { "subject": "hv", "verb": "checkout", "obj": "master"},
+    { "subject": "cb", "verb": "fetch"},
+    { "subject": "hv", "verb": "merge",    "obj": "origin/master"},
+    { "subject": "cb", "verb": "push",     "obj": ["origin", "master"]},
+    { "subject": "hv", "verb": "checkout", "obj": "dev"},
+    { "subject": "hv", "verb": "tag",      "obj": "begin"},
+    { "subject": "hv", "verb": "rebase",    "obj": "origin/dev"},
+    { "subject": "hv", "verb": "commit"},
+    { "subject": "cb", "verb": "push",     "obj": ["origin", "dev"]},
+    { "subject": "hv", "verb": "reset",    "obj": "begin"},
+    { "subject": "hv", "verb": "commit"},
+    { "subject": "hv", "verb": "rebase",    "obj": "origin/dev"},
+    { "subject": "cb", "verb": "push",     "obj": ["origin", "dev"]},
+  ]
+}
