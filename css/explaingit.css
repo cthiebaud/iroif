@@ -265,6 +265,27 @@ button:disabled {
   font-size : 1rem;
 }
 
-.babar span#next-verb {
+.babar span#next-verb,
+.babar span#desc {
   color : #A52A2A; // brown
+}
+
+#initialMessage {
+  font-size : 10px;
+}
+
+.hljs {
+    background-color : #eaffea;
+    overflow-x : hidden; 
+}
+
+.fa-ban {
+  color: red;
+  font-weight: bold;
+  margin-right: 1em;
+}
+.fa-check{
+  color: green;
+  font-weight: bold;
+  margin-right: 1em;
 }

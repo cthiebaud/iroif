@@ -759,15 +759,25 @@ define(['d3'], function () {
             display.text(text);
         },
 
+        _deleteTag: function (name) {
+            this.moveTag(name);
+            this.deleteBranch('[' + name + ']');
+        },
+
         moveTag: function (tag, ref) {
-            var currentLoc = this.getCommit(tag),
-                newLoc = this.getCommit(ref);
+            var currentLoc = this.getCommit(tag), 
+                newLoc;
 
             if (currentLoc) {
                 currentLoc.tags.splice(currentLoc.tags.indexOf(tag), 1);
             }
+            if (ref) {
+                newLoc = this.getCommit(ref);
+                if (newLoc) {
+                    newLoc.tags.push(tag);
+                }
+            }
 
-            newLoc.tags.push(tag);
             return this;
         },
 
@@ -857,7 +867,14 @@ define(['d3'], function () {
         },
 
         tag: function (name) {
-            this.branch('[' + name + ']');
+            if (Array.isArray(name) && name.length > 1) {
+                if (name[0] == '-d') {
+                    this._deleteTag(name[1]);
+                }
+            } else {
+                this.branch('[' + name + ']');
+            }
+            return this;
         },
 
         deleteBranch: function (name) {
@@ -880,10 +897,12 @@ define(['d3'], function () {
 
             this.branches.splice(branchIndex, 1);
             commit = this.getCommit(name);
-            branchIndex = commit.tags.indexOf(name);
+                if (commit) {
+                branchIndex = commit.tags.indexOf(name);
 
-            if (branchIndex > -1) {
-                commit.tags.splice(branchIndex, 1);
+                if (branchIndex > -1) {
+                    commit.tags.splice(branchIndex, 1);
+                }
             }
 
             this.renderTags();

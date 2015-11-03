@@ -2,7 +2,7 @@
   "config":{
     "title": "Complex Workflow",
     "name": "Fetch",
-    "height": 500,
+    "height": 400,
     "commitData": [
       {"id": "e137e9b","tags": ["origin/master"]},
       {"id": "6ce726f","parent": "e137e9b"},
@@ -21,20 +21,20 @@
     "initialMessage": "<a href='https://en.wikipedia.org/wiki/Clausula_rebus_sic_stantibus'>clausula rebus sic stantibus</a>"
   },
   "steps":[
-    { "subject": "hv", "verb": "checkout", "obj": "master"},
+    { "subject": "hv", "verb": "checkout", "abject": "master"},
     { "subject": "cb", "verb": "fetch"},
-    { "subject": "hv", "verb": "merge",    "obj": "origin/master"},
-    { "subject": "cb", "verb": "push",     "obj": ["origin", "master"]},
-    { "subject": "hv", "verb": "checkout", "obj": "dev"},
-    { "subject": "hv", "verb": "tag",      "obj": "begin"},
-    { "subject": "hv", "verb": "rebase",    "obj": "origin/dev"},
+    { "subject": "hv", "verb": "merge",    "abject": "origin/master"},
+    { "subject": "cb", "verb": "push",     "abject": ["origin", "master"]},
+    { "subject": "hv", "verb": "checkout", "abject": "dev"},
+    { "subject": "hv", "verb": "tag",      "abject": "begin"},
+    { "subject": "hv", "verb": "rebase",    "abject": "origin/dev"},
     { "subject": "hv", "verb": "commit"},
-    { "subject": "hv", "verb": "reset",    "obj": "begin"},
+    { "subject": "hv", "verb": "reset",    "abject": "begin"},
     { "subject": "hv", "verb": "commit"},
-    { "subject": "hv", "verb": "merge",    "obj": "origin/dev"},
-    { "subject": "cb", "verb": "push",     "obj": ["origin", "dev"]},
-    { "subject": "hv", "verb": "checkout", "obj": "master"},
-    { "subject": "hv", "verb": "merge",    "obj": "dev"},
-    { "subject": "cb", "verb": "push",     "obj": ["origin", "master"]},
+    { "subject": "hv", "verb": "merge",    "abject": "origin/dev"},
+    { "subject": "cb", "verb": "push",     "abject": ["origin", "dev"]},
+    { "subject": "hv", "verb": "checkout", "abject": "master"},
+    { "subject": "hv", "verb": "merge",    "abject": "dev"},
+    { "subject": "cb", "verb": "push",     "abject": ["origin", "master"]},
   ]
 }

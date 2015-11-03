@@ -2,7 +2,7 @@
   "config":{
     "title": "Simple Workflow",
     "name": "Fetch",
-    "height": 500,
+    "height": 400,
     "commitData": [
        {"id": "e137e9b","tags": ["origin/master", "master"]}
      ],
@@ -13,14 +13,14 @@
     "initialMessage": "et patati, et patata."
   },
   "steps":[
-    { "subject": "hv", "verb": "checkout", "obj": "master"},
-    { "subject": "cb", "verb": "fetch"},
-    { "subject": "hv", "verb": "merge",    "obj": "origin/master"},
+    { "subject": "hv", "verb": "checkout", "abject": "master"        , "commit": "c862d104"},
+    { "subject": "cb", "verb": "fetch"                               , "commit": "64c3db34"},
+    { "subject": "hv", "verb": "merge",    "abject": "origin/master" , "commit": "7930d1ae"},
+    { "subject": "hv", "verb": "commit"                              , "commit": "4d6fb977"},
+    { "subject": "hv", "verb": "commit"                              , "commit": "f3296b19"},
+    { "subject": "hv", "verb": "reset",    "abject" : "HEAD^"},
     { "subject": "hv", "verb": "commit"},
-    { "subject": "hv", "verb": "commit"},
-    { "subject": "hv", "verb": "reset", "obj" : "HEAD^"},
-    { "subject": "hv", "verb": "commit"},
-    { "subject": "cb", "verb": "push",     "obj": ["origin", "master"]},
+    { "subject": "cb", "verb": "push",     "abject": ["origin", "master"]},
     { "subject": "cb", "verb": "fetch"},
   ]
 }

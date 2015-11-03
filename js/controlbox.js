@@ -424,7 +424,10 @@ define(['d3'], function () {
             }
 
             if (local.branches.indexOf(localRef) === -1) {
-                throw new Error('Local ref: ' + localRef + ' does not exist.');
+                var c = local.getCommit(localRef);
+                if (c == null) {
+                  throw new Error('Local ref: ' + localRef + ' does not exist.');
+                }
             }
 
             if (!remoteRef) {
@@ -476,6 +479,7 @@ define(['d3'], function () {
             } else {
                 this.info('Sorry, creating new remote branches is not supported yet.');
             }
+            this.fetch();
         },
 
         config: function (args) {

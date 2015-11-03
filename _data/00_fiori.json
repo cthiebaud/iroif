@@ -1,0 +1,31 @@
+{
+  "config":{
+    "title": "Fiori Release",
+    "name": "Fetch",
+    "url": "test_data/pom-$CommitId.xml",
+    "height": 400,
+    "commitData": [
+       {"id": "e137e9b","tags": ["origin/master", "master"]}
+     ],
+    "originData": [
+       {"id": "e137e9b","tags": ["master"]}
+    ],
+    "initialMessage": "Mais il était si timide avec elle, qu’ayant fini par la posséder ce soir-là,   en commençant par arranger ses catleyas, soit crainte de la froisser, soit peur   de paraître rétrospectivement avoir menti, soit manque d’audace pour formuler   une exigence plus grande que celle-là (qu’il pouvait renouveler puisqu’elle   n’avait pas fiché Odette la première fois), les jours suivants il usa du même   prétexte. Si elle avait des catleyas à son corsage, il disait : «C’est   malheureux, ce soir, les catleyas n’ont pas besoin d’être arrangés, ils n’ont   pas été déplacés comme l’autre soir ; il me semble pourtant que celui-ci n’est   pas très droit. Je peux voir s’ils ne sentent pas plus que les autres ?»   Ou bien, si elle n’en avait pas : «Oh ! pas de catleyas ce soir, pas   moyen de me livrer à mes petits arrangements.» De sorte que, pendant quelque   temps, ne fut pas changé l’ordre qu’il avait suivi le premier soir, en débutant   par des attouchements de doigts et de lèvres sur la gorge d’Odette et que ce   fut par eux encore que commençaient chaque fois ses caresses ; et, bien plus   tard quand l’arrangement (ou le simulacre d’arrangement) des catleyas, fut depuis   longtemps tombé en désuétude, la métaphore «faire catleya», devenue un simple   vocable qu’ils employaient sans y penser quand ils voulaient signifier l’acte   de la possession physique—où d’ailleurs l’on ne possède rien,—survécut dans   leur langage, où elle le commémorait, à cet usage oublié. Et peut-être cette   manière particulière de dire «faire l’amour» ne signifiait-elle pas exactement   la même chose que ses synonymes. On a beau être blasé sur les femmes, considérer   la possession des plus différentes comme toujours la même et connue d’avance,   elle devient au contraire un plaisir nouveau s’il s’agit de femmes assez difficiles—ou   crues telles par nous—pour que nous soyons obligés de la faire naître de quelque   épisode imprévu de nos relations avec elles, comme avait été la première fois   pour Swann l’arrangement des catleyas. Il espérait en tremblant, ce soir-là   (mais Odette, se disait-il, si elle était dupe de sa ruse, ne pouvait le deviner),   que c’était la possession de cette femme qui allait sortir d’entre leurs larges   pétales mauves ; et le plaisir qu’il éprouvait déjà et qu’Odette ne tolérait   peut-être, pensait-il, que parce qu’elle ne l’avait pas reconnu, lui semblait,   à cause de cela—comme il put paraître au premier homme qui le goûta parmi les   fleurs du paradis terrestre—un plaisir qui n’avait pas existé jusque-là, qu’il   cherchait à créer, un plaisir—ainsi que le nom spécial qu’il lui donna en garda   la trace—entièrement particulier et nouveau."
+  },
+  "steps":[
+    { "subject": "hv", "verb": "checkout",  "abject": "master"                   , "commit": "c862d104" },
+    { "subject": "hv", "verb": "commit"                                          , "commit": "f3296b19", "desc": "Prepare release: set version to 0.0.1, then commit to local repository (Maven JGit-Flow Plugin)."},
+    { "subject": "hv", "verb": "commit"                                          , "commit": "2db9a3db", "desc": "Prepare next development iteration: set version to 0.0.2-SNAPSHOT, then commit to local repository (Maven JGit-Flow Plugin)."},
+    { "subject": "hv", "verb": "tag",       "abject": "secret"                   , "commit": "2db9a3db", "desc": "Tag 0.0.2-SNAPSHOT version to enable later checkout."},
+    { "subject": "hv", "verb": "reset",     "abject": "HEAD^"                    , "commit": "f3296b19", "desc": "Reset HEAD reference back to release version."},
+    { "subject": "cb", "verb": "push",      "abject": ["origin", "master"]       , "commit": "f3296b19", "desc": "Push release version to remote repository. Perform a release from the remote."},
+    { "subject": "hv", "verb": "commit"                                          , "commit": "f3296b19", "desc": "<i class='fa fa-ban'/>The release failed. Fix the issue, then commit to local repository."},
+    { "subject": "cb", "verb": "push",      "abject": ["origin", "master"]       , "commit": "f3296b19", "desc": "Push fix to remote repository, then retry the release from the remote."},
+    { "subject": "hv", "verb": "checkout",  "abject": "[secret]"                 , "commit": "2db9a3db", "desc": "<i class='fa fa-check'/>The release went fine. Move HEAD reference to 'secret' to prepare the rebase."},
+    { "subject": "hv", "verb": "rebase",    "abject": "origin/master"            , "commit": "2db9a3db", "desc": "Rebase the version 0.0.2-SNAPSHOT on master."},
+    { "subject": "cb", "verb": "push",      "abject": ["origin", "HEAD:master" ] , "commit": "2db9a3db", "desc": "Push version 0.0.2-SNAPSHOT to remote repository"},
+    { "subject": "hv", "verb": "checkout",  "abject": "master"                   , "commit": "f3296b19", "desc": "At this point, we're done, we could get rid of local repository. Here, we'll reset it to a working state: first checkout master."},
+    { "subject": "hv", "verb": "rebase",    "abject": "origin/master"            , "commit": "2db9a3db", "desc": "Then, rebase master on origin/master."},
+    { "subject": "hv", "verb": "tag",       "abject": ["-d", "secret"]           , "commit": "2db9a3db", "desc": "Finally, delete temporary local tag."},
+  ]
+}
