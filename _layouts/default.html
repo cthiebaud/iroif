@@ -60,14 +60,25 @@
       </span>
       </a>
       <ul class="nav navbar-nav">
+        {% if page.title == 'Git Workflows' %}
         <li class="nav-item active">
+        {% else %}
+        <li class="nav-item">
+        {% endif %}
           <a class="nav-link" href="index.html">Git Workflows</a>
+        </li>
+        {% if page.title == 'Useful Links' %}
+        <li class="nav-item active">
+        {% else %}
+        <li class="nav-item">
+        {% endif %}
+          <a class="nav-link" href="links.html">Useful Links</a>
         </li>
       </ul>      
     </div>
   </nav>
 
-  <div class="container-fluid" style="margin-top:4em;">
+  <div class="container-fluid" style="margin-top:5em;">
       {{ content }}
   </div>
 
