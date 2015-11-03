@@ -87,6 +87,7 @@ define(['d3'], function () {
             this.log.remove();
             this.input.remove();
             this.container.remove();
+            this.originView.destroy();
 
             for (var prop in this) {
                 if (this.hasOwnProperty(prop)) {
