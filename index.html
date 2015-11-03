@@ -142,7 +142,7 @@ require(['explaingit'], function (explainGit) {
     function fetchCode(s) {
       var workflow = getWorkflow();
       var steps = workflow.steps;
-      if (s < 0 || steps.length <= s || !steps[s].commit) {
+      if (s < 0 || steps.length <= s || !steps[s].commit || !workflow.config.url) {
           $('#sample pre').empty();
           return;
       }
