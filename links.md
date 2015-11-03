@@ -6,6 +6,9 @@ layout: default
 Useful Links
 =====
 
+## Credits
+
+The [Git Workflows](index.html) page is a _copy & paste & hack_ from the page [Visualizing Git Concepts with D3](http://onlywei.github.io/explain-git-with-d3/) from [Wei Wang](https://twitter.com/onlywei). Original sources [here](https://github.com/onlywei/explain-git-with-d3).
 
 ## Git-Flow
     
@@ -17,13 +20,13 @@ Useful Links
  
 [https://github.com/nvie/gitflow](https://github.com/nvie/gitflow)
 
-_Git extensions (shell) to provide high-level repository operations for Vincent Driessen's branching model._ 
+« _Git extensions (shell) to provide high-level repository operations for Git-Flow branching model._ »
 
 ### JGit-Flow Maven Plugin 
 
 [http://jgitflow.bitbucket.org/](http://jgitflow.bitbucket.org/)
 
-_A maven plugin that allows you to use Git Flow and Maven Together_
+« _A maven plugin that allows you to use Git Flow and Maven Together_ »
 
 #### User Guide 
 
