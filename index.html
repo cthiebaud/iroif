@@ -7,20 +7,22 @@ layout: default
 
 <link rel="stylesheet" href="css/explaingit.css">
 
-<div style="margin-top: 1em;margin-bottom: 1em;" class="row">
+<div style="margin-top: 1em; margin-bottom: 1em;" class="row">
   <div class="col-lg-12">
-    <h1 style="float:left; margin-right:1em;">
-      <span id="title" data-id=""></span><!-- title will be inserted here -->
+    <h1 style="float: left; margin-right: 1em;">
+      <span id="title" data-id=""></span>
+      <!-- title will be inserted here -->
       <span class="dropdown">
-        <button class="btn btn-sm btn-secondary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Change Workflow</button>
+        <button class="btn btn-sm btn-secondary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">Change Workflow</button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenu1" style="font-family: monospace">
-          {% for files in datas %}
-            <a class="dropdown-item" href="#" id="{{ files[0] }}">{{ files[0] }}</a>
-          {% endfor %}
+          {% for files in datas %} <a class="dropdown-item" href="#" id="{{ files[0] }}">{{ files[0] }}</a> {% endfor %}
         </div>
       </span>
     </h1>
-    <button id="download" class="btn btn-sm btn-default" style="float:right; margin-left: 1em;"><i class="fa fa-download"></i></button>
+    <button id="download" class="btn btn-sm btn-default" style="float: right; margin-left: 1em;">
+      <i class="fa fa-download"></i>
+    </button>
     <div id="initialMessage"></div>
   </div>
 </div>
@@ -30,30 +32,27 @@ layout: default
     <i class="fa fa-home"></i>
   </button>
   <button id="prev" type="button" class="btn btn-sm btn-link-outline disabled_at_start" disabled>
-    <span>undo</span>
-    <i class="fa fa-step-backward"></i>
+    <span>undo</span> <i class="fa fa-step-backward"></i>
   </button>
   <span id="step-index" class="label label-default">00</span>
-  <button id="next"type="button" class="btn btn-sm btn-link-outline" disabled>
-    <i class="fa fa-step-forward"></i>
-    <span id="next-verb"></span>
+  <button id="next" type="button" class="btn btn-sm btn-link-outline" disabled>
+    <i class="fa fa-step-forward"></i> <span id="next-verb"></span>
   </button>
   <span id="desc"></span>
 </p>
 
 <p>
-  <ol class="breadcrumb" style="margin-bottom: 5px;">
-  </ol>
+<ol class="breadcrumb" style="margin-bottom: 5px;">
+</ol>
 </p>
 
 <p>
-  <div class="alert alert-warning alert-dismissible fade in" role="alert" style="display:none">
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-      <span aria-hidden="true">&times;</span>
-      <span class="sr-only">Close</span>
-    </button>
-    <strong>Holy guacamole!</strong> <span id="error"><span>>.
-  </div>
+<div class="alert alert-warning alert-dismissible fade in" role="alert" style="display: none">
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span> <span class="sr-only">Close</span>
+  </button>
+  <strong>Holy guacamole!</strong> <span id="error"><span>>. 
+</div>
 </p>
 
 <div class="concept-area">
@@ -63,33 +62,31 @@ layout: default
 </div>
 
 <div class="row">
-  <div id="sample" class="col-lg-6" style="font-family: monospace">
-  </div>
-  <div id="placeholder" class="col-lg-6" ></div>
+  <div id="sample" class="col-lg-6" style="font-family: monospace"></div>
+  <div id="placeholder" class="col-lg-6"></div>
 </div>
 
-<div style="display:none;">
-  <pre id="highlightJSTemplate" ><code class="xml">...</code></pre>
+<div style="display: none;">
+  <pre id="highlightJSTemplate">
+    <code class="xml">...</code>
+  </pre>
 </div>
 
 
-<svg version="1.1" baseProfile="full"
-     xmlns="http://www.w3.org/2000/svg"
-     xmlns:xlink="http://www.w3.org/1999/xlink"
-     xmlns:ev="http://www.w3.org/2001/xml-events"
-     width="0" height="0">
+<svg version="1.1" baseProfile="full" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  xmlns:ev="http://www.w3.org/2001/xml-events" width="0" height="0">
 
-    <marker id="triangle" refX="5" refY="5" markerUnits="strokeWidth" fill="#666"
-            markerWidth="4" markerHeight="3" orient="auto" viewBox="0 0 10 10">
-        <path d="M 0 0 L 10 5 L 0 10 z"/>
+    <marker id="triangle" refX="5" refY="5" markerUnits="strokeWidth" fill="#666" markerWidth="4" markerHeight="3" orient="auto"
+    viewBox="0 0 10 10">
+        <path d="M 0 0 L 10 5 L 0 10 z" />
     </marker>
-    <marker id="faded-triangle" refX="5" refY="5" markerUnits="strokeWidth" fill="#DDD"
-            markerWidth="4" markerHeight="3" orient="auto" viewBox="0 0 10 10">
-        <path d="M 0 0 L 10 5 L 0 10 z"/>
+    <marker id="faded-triangle" refX="5" refY="5" markerUnits="strokeWidth" fill="#DDD" markerWidth="4" markerHeight="3" orient="auto"
+    viewBox="0 0 10 10">
+        <path d="M 0 0 L 10 5 L 0 10 z" />
     </marker>
-    <marker id="brown-triangle" refX="5" refY="5" markerUnits="strokeWidth" fill="#663300"
-            markerWidth="4" markerHeight="3" orient="auto" viewBox="0 0 10 10">
-        <path d="M 0 0 L 10 5 L 0 10 z"/>
+    <marker id="brown-triangle" refX="5" refY="5" markerUnits="strokeWidth" fill="#663300" markerWidth="4" markerHeight="3" orient="auto"
+    viewBox="0 0 10 10">
+        <path d="M 0 0 L 10 5 L 0 10 z" />
     </marker>
 </svg>
 
@@ -101,260 +98,269 @@ require(['explaingit'], function (explainGit) {
 
   $( document ).ready(function() {
 
-      ////////////
-      $('pre').hide();
-
-      $("#download").click(function() {
-        event.preventDefault();
-        alert("not yet");
-      });
-
-      $('#dropdownMenu1').dropdown();
-      
-      ////////////
-      function pad(num, size) {
-          var s = num+"";
-          while (s.length < size) s = "0" + s;
-          return s;
-      }      
-  
-      ////////////
-      var workflows = {};
-
-      var _workflows_ = [
-        {% for files in datas %}
-          {{ files | jsonify }} ,
-        {% endfor %}
-      ];
-
-      var first = true;
-      _workflows_.map(function(tuple) {
-        if (first) {
-            setCurrentWorkflowKey(tuple[0]);
-            first = false;
-        }
-
-        workflows[tuple[0]]=tuple[1];
-
-        $('#'+tuple[0]).on('click', function (e) {
-          resetAndOpen(this.id);
-        })
-      });
-
-      ///////////////
-      function fetchCode(s) {
-        var workflow = getWorkflow();
-        var steps = workflow.steps;
-        if (s < 0 || steps.length <= s || !steps[s].commit) {
-            $('#sample pre').empty();
-            return;
-        }
-
-        var url = workflow.config.url.replace(/\$CommitId/gi, steps[s].commit);
-
-        var crossDomain = false;
-        if (url.indexOf('//') != -1 && url.indexOf(window.location.hostname) == -1) {
-          crossDomain = true;
-          var encodedURL = encodeURI(url);
-          url = "https://development.neo.ondemand.com/proxy.jsp?"+encodedURL;
-        }
-
-        $.ajax( {
-            url: url,
-            crossDomain: crossDomain,
-        }).done(function(data) {
-            var qwe = data;
-            if (data.documentElement) {
-              qwe = new XMLSerializer().serializeToString(data.documentElement);
-            }
-            var pre = $("pre#highlightJSTemplate").clone();
-            pre.attr("id","newId").children("code").text(qwe);
-            pre.show();
-            $('#sample').empty().removeClass("alert-warning").append(pre);
-            $('pre code').each(function(i, block) {
-              hljs.highlightBlock(block);
-            });
-        }).fail(function( jqXHR, textStatus, errorThrown ) {
-            $('#sample').empty().html(
-              'url<br/>&nbsp;&nbsp;&nbsp;&nbsp;'
-              + url +
-              '<br/>textStatus<br/>&nbsp;&nbsp;&nbsp;&nbsp;' 
-              + textStatus +
-              '<br/>errorThrown<br/>&nbsp;&nbsp;&nbsp;&nbsp;' 
-              + errorThrown
-            ).addClass("alert-warning");
-        });
-      }
-
-      ///////////////
-      function setCurrentWorkflowKey(key) {
-        return $("title").data("id", key); 
-      };
-      function getCurrentWorkflowKey() {
-        return $("title").data("id"); 
-      };
-      function getWorkflow(keyParam) {
-        var key = keyParam || getCurrentWorkflowKey();
-        return workflows[key]; 
-      };
-      function getWorkflowSteps(keyParam) {
-        return getWorkflow(keyParam).steps; 
-      };
-
-      ///////////////
-      function setCurrentStep(s) {
-        $("#step-index").text(pad(s, 2));
-      };
-      function getCurrentStep() {
-        return parseInt($("#step-index").text()); 
-      };
-
-      function initSteps(key) {
-        $(".breadcrumb").empty();
-        var workflow = getWorkflow(key);
-        var steps = workflow.steps;
-        for (var s = 1; s < steps.length; s++) {
-          var o = steps[s].abject ? (" '"+steps[s].abject+"'") : '';
-          $(".breadcrumb").append($("<li id='"+s+"'>").attr("title", $('<div>'+steps[s].desc+'</div>').text()).text(steps[s].verb + o));
-        }
-        $("ol.breadcrumb li").attr("data-toggle", "tooltip").attr("data-placement", "bottom");
-        $('[data-toggle="tooltip"]').tooltip();
-        $("#initialMessage").html(workflow.config.initialMessage);
-        $("#title").text(workflow.config.title);
-        setStep(0);
-      }
-
-      function logSteps(key) {
-        var steps = getWorkflowSteps(key);
-        for (var s = 0; s < steps.length; s++) {
-            console.log(s, steps[s].undo);
-        }
-      }
-
-      function setStep(s) {
-        var steps = getWorkflowSteps();
-        if (s < 0 || steps.length <= s) {
-            return;
-        }
-
-        if (s == 0) { // no prev
-            $(".disabled_at_start").prop('disabled', true)
-        } else {
-            $(".disabled_at_start").prop('disabled', false)
-        }
-
-        if (steps.length -1 <= s) { // no next
-            $("#next").prop('disabled', true);
-            $("#next-verb").empty();
-            $("#desc").text("Done!");
-        } else {
-            $("#next").prop('disabled', false);
-            $("#next-verb").text(steps[s+1].verb);
-            $("#desc").html(steps[s+1].desc);
-        }
-
-        for (var i=1; i<steps.length; i++) {
-            var style = { 
-              color             : "black", 
-              "font-style"      : "normal", 
-              "text-decoration" : "none", 
-              "font-family"     : "monospace", 
-              "font-size"       : "smaller"
-            };
-
-            if (i<=s) {
-                style["text-decoration"] = "line-through";
-            } else {
-                style.color = "gray";
-            }
-            if (i == s+1) {
-                style.color = "brown";
-                style["font-style"] = "italic";
-            }
-            $(".breadcrumb li#"+i).css(style);
-        }
-
-        setCurrentStep(s);
-
-        fetchCode(s);
-
+    ////////////
+    function pad(num, size) {
+        var s = num+"";
+        while (s.length < size) s = "0" + s;
         return s;
+    }      
+
+    ////////////
+    $('pre').hide();
+
+    $("#download").click(function() {
+      event.preventDefault();
+      alert("not yet");
+    });
+
+    $('#dropdownMenu1').dropdown();
+    
+    ////////////
+    var workflows = {};
+
+    var _workflows_ = [
+      {% for files in datas %}
+        {{ files | jsonify }} ,
+      {% endfor %}
+    ];
+
+    var first = true;
+    _workflows_.map(function(tuple) {
+      if (first) {
+          setCurrentWorkflowKey(tuple[0]);
+          first = false;
       }
 
-      $( "#next" ).click(function(event) {
-        event.preventDefault();
-        $(".alert-warning").hide();
-        var workflow = getWorkflow();
-        var steps = workflow.steps;
-        var curr = getCurrentStep();
-        if (typeof steps[curr].undo === "undefined") {
-            steps[curr].undo                = $.extend(true, {}, workflow.config);
-            steps[curr].undo.commitData     = $.extend(true, [], workflow.sandbox.hv.commitData);
-            steps[curr].undo.originData     = $.extend(true, [], workflow.sandbox.cb.originView.commitData);
-            steps[curr].undo.currentBranch  =                    workflow.sandbox.hv.currentBranch;
-        }
+      workflows[tuple[0]]=tuple[1];
 
-        var next = setStep( curr + 1 );
+      $('#'+tuple[0]).on('click', function (e) {
+        resetAndOpen(this.id);
+      })
+    });
 
-        try {
-          /* !!!!!!!!!!!!!!!!!!!!!!!!!!!! beware shift and pop on array arguments !!!!!!!!!!!!!!!!!!!!!!!!!!!! */
-          if (_.isArray(steps[next].abject)) {
-            args = steps[next].abject.slice(0);
-          } else {
-            args = steps[next].abject;
-          }
-          getWorkflow().sandbox[steps[next].subject][steps[next].verb](args);
-        } catch (error) {
-          $(".alert-warning").show().children("span#error").text(error);
-        }
-
-      });
-  
-      $( "#prev" ).click(function(event) {
-        event.preventDefault();
-        $(".alert-warning").hide();
-        var workflow = getWorkflow();
-        var steps = workflow.steps;
-        var curr = getCurrentStep();
-        if (curr == 0){
+    ///////////////
+    function fetchCode(s) {
+      var workflow = getWorkflow();
+      var steps = workflow.steps;
+      if (s < 0 || steps.length <= s || !steps[s].commit) {
+          $('#sample pre').empty();
           return;
-        }
-        var prev = setStep( curr - 1 );
-        if (typeof steps[prev].undo !== "undefined") {
-            openConfig( workflow, steps[prev].undo );
-        }
-      });
+      }
 
-      function openConfig(workflow, config) {
-          $(".alert-warning").hide();
+      var url = workflow.config.url.replace(/\$CommitId/gi, steps[s].commit);
+
+      var crossDomain = false;
+      if (url.indexOf('//') != -1 && url.indexOf(window.location.hostname) == -1) {
+        crossDomain = true;
+        var encodedURL = encodeURI(url);
+        url = "https://development.neo.ondemand.com/proxy.jsp?"+encodedURL;
+      }
+
+      $.ajax( {
+          url: url,
+          crossDomain: crossDomain,
+      }).done(function(data) {
+          var qwe = data;
+          if (data.documentElement) {
+            qwe = new XMLSerializer().serializeToString(data.documentElement);
+          }
+          var pre = $("pre#highlightJSTemplate").clone();
+          pre.attr("id","newId").children("code").text(qwe);
+          pre.show();
+          $('#sample').empty().removeClass("alert-warning").append(pre);
+          $('pre code').each(function(i, block) {
+            hljs.highlightBlock(block);
+          });
+      }).fail(function( jqXHR, textStatus, errorThrown ) {
+          $('#sample').empty().html(
+            'url<br/>&nbsp;&nbsp;&nbsp;&nbsp;'
+            + url +
+            '<br/>textStatus<br/>&nbsp;&nbsp;&nbsp;&nbsp;' 
+            + textStatus +
+            '<br/>errorThrown<br/>&nbsp;&nbsp;&nbsp;&nbsp;' 
+            + errorThrown
+          ).addClass("alert-warning");
+      });
+    }
+
+    ///////////////
+    function setCurrentWorkflowKey(key) {
+      return $("title").data("id", key); 
+    };
+    function getCurrentWorkflowKey() {
+      return $("title").data("id"); 
+    };
+    function getWorkflow(keyParam) {
+      var key = keyParam || getCurrentWorkflowKey();
+      return workflows[key]; 
+    };
+    function getWorkflowSteps(keyParam) {
+      return getWorkflow(keyParam).steps; 
+    };
+
+    ///////////////
+    function setCurrentStep(s) {
+      $("#step-index").text(pad(s, 2));
+    };
+    function getCurrentStep() {
+      return parseInt($("#step-index").text()); 
+    };
+
+    function initSteps(key) {
+      $(".breadcrumb").empty();
+      var workflow = getWorkflow(key);
+      var steps = workflow.steps;
+      for (var s = 1; s < steps.length; s++) {
+        var o = steps[s].abject ? (" '"+steps[s].abject+"'") : '';
+        var $li = $("<li id='"+s+"'>").text(steps[s].verb + o);
+        if (steps[s].desc) {
+          $li.attr("title", $('<div>'+steps[s].desc+'</div>').text());
+        }
+        $(".breadcrumb").append($li);
+      }
+      $("ol.breadcrumb li").attr("data-toggle", "tooltip").attr("data-placement", "bottom");
+      $('[data-toggle="tooltip"]').tooltip();
+      $("#initialMessage").html(workflow.config.initialMessage);
+      $("#title").text(workflow.config.title);
+      setStep(0);
+    }
+
+    function logSteps(key) {
+      var steps = getWorkflowSteps(key);
+      for (var s = 0; s < steps.length; s++) {
+          console.log(s, steps[s].undo);
+      }
+    }
+
+    function setStep(s) {
+      var steps = getWorkflowSteps();
+      if (s < 0 || steps.length <= s) {
+          return;
+      }
+
+      if (s == 0) { // no prev
+          $(".disabled_at_start").prop('disabled', true)
+      } else {
+          $(".disabled_at_start").prop('disabled', false)
+      }
+
+      if (steps.length -1 <= s) { // no next
+          $("#next").prop('disabled', true);
+          $("#next-verb").empty();
+          $("#desc").text("Done!");
+      } else {
+          $("#next").prop('disabled', false);
+          $("#next-verb").text(steps[s+1].verb);
+          if (steps[s+1].desc) {
+              $("#desc").html(steps[s+1].desc);
+          } else {
+            $("#desc").empty();
+          }
           
-          explainGit.reset();
-          workflow.sandbox = explainGit.open($.extend(true, {}, config));
       }
 
-      function resetAndOpen(key) {
-        if (typeof key !== "undefined") {
-          setCurrentWorkflowKey(key);
-        }
-        var workflow = getWorkflow(key);
-        openConfig(workflow, workflow.config);
-        initSteps(key);
-        if (!workflow.config.url) {
-          $('#sample').hide();
+      for (var i=1; i<steps.length; i++) {
+          var style = { 
+            color             : "black", 
+            "font-style"      : "normal", 
+            "text-decoration" : "none", 
+            "font-family"     : "monospace", 
+            "font-size"       : "smaller"
+          };
+
+          if (i<=s) {
+              style["text-decoration"] = "line-through";
+          } else {
+              style.color = "gray";
+          }
+          if (i == s+1) {
+              style.color = "brown";
+              style["font-style"] = "italic";
+          }
+          $(".breadcrumb li#"+i).css(style);
+      }
+
+      setCurrentStep(s);
+
+      fetchCode(s);
+
+      return s;
+    }
+
+    $( "#next" ).click(function(event) {
+      event.preventDefault();
+      $(".alert-warning").hide();
+      var workflow = getWorkflow();
+      var steps = workflow.steps;
+      var curr = getCurrentStep();
+      if (typeof steps[curr].undo === "undefined") {
+          steps[curr].undo                = $.extend(true, {}, workflow.config);
+          steps[curr].undo.commitData     = $.extend(true, [], workflow.sandbox.hv.commitData);
+          steps[curr].undo.originData     = $.extend(true, [], workflow.sandbox.cb.originView.commitData);
+          steps[curr].undo.currentBranch  =                    workflow.sandbox.hv.currentBranch;
+      }
+
+      var next = setStep( curr + 1 );
+
+      try {
+        /* !!!!!!!!!!!!!!!!!!!!!!!!!!!! beware shift and pop on array arguments !!!!!!!!!!!!!!!!!!!!!!!!!!!! */
+        if (_.isArray(steps[next].abject)) {
+          args = steps[next].abject.slice(0);
         } else {
-          $('#sample').show();
+          args = steps[next].abject;
         }
+        getWorkflow().sandbox[steps[next].subject][steps[next].verb](args);
+      } catch (error) {
+        $(".alert-warning").show().children("span#error").text(error);
       }
 
-      $("#home").click(function (event) {
-          event.preventDefault();
-          resetAndOpen();
-      });
+    });
 
-      resetAndOpen();
+    $( "#prev" ).click(function(event) {
+      event.preventDefault();
+      $(".alert-warning").hide();
+      var workflow = getWorkflow();
+      var steps = workflow.steps;
+      var curr = getCurrentStep();
+      if (curr == 0){
+        return;
+      }
+      var prev = setStep( curr - 1 );
+      if (typeof steps[prev].undo !== "undefined") {
+          openConfig( workflow, steps[prev].undo );
+      }
+    });
 
-    }); // document reday
+    function openConfig(workflow, config) {
+        $(".alert-warning").hide();
+        
+        explainGit.reset();
+        workflow.sandbox = explainGit.open($.extend(true, {}, config));
+    }
 
-  }); // require 
+    function resetAndOpen(key) {
+      if (typeof key !== "undefined") {
+        setCurrentWorkflowKey(key);
+      }
+      var workflow = getWorkflow(key);
+      openConfig(workflow, workflow.config);
+      initSteps(key);
+      if (!workflow.config.url) {
+        $('#sample').hide();
+      } else {
+        $('#sample').show();
+      }
+    }
+
+    $("#home").click(function (event) {
+        event.preventDefault();
+        resetAndOpen();
+    });
+
+    resetAndOpen();
+
+  }); // document reday
+
+}); // require 
 
 </script>

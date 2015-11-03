@@ -21,6 +21,5 @@
     { "subject": "hv", "verb": "reset",    "abject" : "HEAD^"},
     { "subject": "hv", "verb": "commit"},
     { "subject": "cb", "verb": "push",     "abject": ["origin", "master"]},
-    { "subject": "cb", "verb": "fetch"},
   ]
 }
