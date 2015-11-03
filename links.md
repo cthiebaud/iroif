@@ -6,10 +6,6 @@ layout: default
 Useful Links
 =====
 
-## Credits
-
-The [Git Workflows](index.html) page is a _copy & paste & hack_ from the page [Visualizing Git Concepts with D3](http://onlywei.github.io/explain-git-with-d3/) from [Wei Wang](https://twitter.com/onlywei). Original sources [here](https://github.com/onlywei/explain-git-with-d3).
-
 ## Git-Flow
     
 [Original post](http://nvie.com/posts/a-successful-git-branching-model/) by [Vincent Driessen](https://twitter.com/nvie).
