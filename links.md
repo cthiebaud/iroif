@@ -20,13 +20,13 @@ The [Git Workflows](index.html) page is a _copy & paste & hack_ from the page [V
  
 [https://github.com/nvie/gitflow](https://github.com/nvie/gitflow)
 
-« _Git extensions (shell) to provide high-level repository operations for Git-Flow branching model._ »
+Â« _Git extensions (shell) to provide high-level repository operations for Git-Flow branching model._ Â»
 
 ### JGit-Flow Maven Plugin 
 
 [http://jgitflow.bitbucket.org/](http://jgitflow.bitbucket.org/)
 
-« _A maven plugin that allows you to use Git Flow and Maven Together_ »
+Â« _A maven plugin that allows you to use Git Flow and Maven Together_ Â»
 
 #### User Guide 
 
