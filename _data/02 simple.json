@@ -1,0 +1,26 @@
+{
+  "config":{
+    "title": "Simple Workflow",
+    "name": "Simple",
+    "height": 360,
+    "commitData": [
+       {"id": "e137e9b","tags": ["origin/master", "master"]}
+     ],
+    "originData": [
+       {"id": "e137e9b"},
+       {"id": "7eb7654","parent": "e137e9b","tags": ["master"]}
+    ],
+    "initialMessage": "et patati, et patata."
+  },
+  "steps":[
+    { "subject": "hv", "verb": "checkout", "abject": "master"             },
+    { "subject": "cb", "verb": "fetch"                                    , "desc": "fetch from remote"},
+    { "subject": "hv", "verb": "merge",    "abject": "origin/master"      , "desc": "merge with local"},
+    { "subject": "hv", "verb": "commit"                                   , "desc": "commit some stuff"},
+    { "subject": "hv", "verb": "commit"                                   , "desc": "commit more stuff"},
+    { "subject": "hv", "verb": "reset",    "abject" : "HEAD^"             , "desc": "oops! I should not have done that, I'd better reset to the penultimate commit"},
+    { "subject": "hv", "verb": "commit"                                   , "desc": "commit better stuff"},
+    { "subject": "cb", "verb": "push",     "abject": ["origin", "master"] , "desc": "sounds good, let's share it with my friends"},
+  ]
+}
+

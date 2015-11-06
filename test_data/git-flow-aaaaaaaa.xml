@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+  <features>
+    <feature>foo</feature>
+  </features>
+  <issues>
+    <!-- not yet detected ! -->
+  </issues>
+</project>

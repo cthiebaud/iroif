@@ -1,0 +1,6 @@
+/.project
+/logs/
+/.settings/
+_site
+.sass-cache
+*.log

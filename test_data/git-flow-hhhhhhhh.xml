@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+  <signed-off-by>i051108</signed-off-by>
+  <version>0.0.1</version>
+  <features>
+    <feature>foo</feature>
+  </features>
+  <issues>
+    <issue id="1" status="fixed">aie</issue>
+  </issues>
+</project>

@@ -1,0 +1,31 @@
+{
+  "config":{
+    "title": "Fiori Release",
+    "name": "Fiori",
+    "height": 360,
+    "commitData": [
+       {"id": "00000000","tags": ["origin/master", "master"]}
+     ],
+    "originData": [
+       {"id": "00000000","tags": ["master"]}
+    ],
+    "initialMessage": "cf. this absolutely unrelated <a href='catleyas.html'>text</a>."
+  },
+  "url": "test_data/fiori-$CommitId.xml",
+  "steps":[
+    { "subject": "hv", "verb": "checkout",  "abject": "master"                      },
+    { "subject": "hv", "verb": "commit"  ,  "abject": "11111111"                    , "desc": "Prepare release: set version to 0.0.1, then commit to local repository (Maven JGit-Flow Plugin)."},
+    { "subject": "hv", "verb": "commit"  ,  "abject": "22222222"                    , "desc": "Prepare next development iteration: set version to 0.0.2-SNAPSHOT, then commit to local repository (Maven JGit-Flow Plugin)."},
+    { "subject": "hv", "verb": "tag",       "abject": "secret"                      , "desc": "Tag 0.0.2-SNAPSHOT version to enable later checkout."},
+    { "subject": "hv", "verb": "reset",     "abject": "HEAD^"                       , "desc": "Reset HEAD reference back to release version."},
+    { "subject": "cb", "verb": "push",      "abject": ["origin", "master"]          , "desc": "Push release version to remote repository. Perform a release from the remote."},
+    { "subject": "hv", "verb": "commit"  ,  "abject": "33333333"                    , "desc": "<i class='fa fa-ban'/>The release failed. Fix the issue, then commit to local repository."},
+    { "subject": "cb", "verb": "push",      "abject": ["origin", "master"]          , "desc": "Push fix to remote repository, then retry the release from the remote."},
+    { "subject": "hv", "verb": "checkout",  "abject": "[secret]"                    , "desc": "<i class='fa fa-check'/>The release went fine. Move HEAD reference to 'secret' to prepare the rebase."},
+    { "subject": "hv", "verb": "rebase",    "abject": ["origin/master", "44444444"] , "desc": "Rebase the version 0.0.2-SNAPSHOT on master."},
+    { "subject": "cb", "verb": "push",      "abject": ["origin", "HEAD:master" ]    , "desc": "Push version 0.0.2-SNAPSHOT to remote repository"},
+    { "subject": "hv", "verb": "checkout",  "abject": "master"                      , "chain": 1, "desc": "At this point, we're done; we could get rid of local repository. Here, we'll reset it to a working state."},
+    { "subject": "hv", "verb": "rebase",    "abject": ["origin/master", "55555555"] , "chain": 1, "desc": "Rebase master on origin/master."},
+    { "subject": "hv", "verb": "tag",       "abject": ["-d", "secret"]              ,             "desc": "Delete temporary local tag."},
+  ]
+}

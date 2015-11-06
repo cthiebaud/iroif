@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+  <version>0.0.1-SNAPSHOT</version>
+  <features>
+    <feature>foo</feature>
+  </features>
+  <issues>
+    <issue id="1" status="in progress">aie</issue>
+  </issues>
+</project>

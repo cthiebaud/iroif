@@ -1,0 +1,128 @@
+---
+title: Git Workflows
+layout: default
+---
+<!-- index.html -->
+
+{% assign datas = site.data | sort  %}
+
+<link rel="stylesheet" href="css/explaingit.css">
+
+<section style="margin-top: 1em; margin-bottom: 1em;" class="row">
+  <div class="col-lg-12">
+    <h1 style="float: left; margin-right: 1em;">
+      <!-- title will be inserted here -->
+      <span id="title" data-id="{{ datas[0][0] }}"></span>
+      <span class="dropdown">
+        <button class="btn btn-sm btn-secondary dropdown-toggle" type="button" id="workflowDropdown" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">Change Workflow</button>
+        <div class="dropdown-menu" aria-labelledby="workflowDropdown" style="font-family: monospace">
+        {% for files in datas %}  <a class="dropdown-item" href="#{{ files[0] }}" id="{{ files[0] }}">{{ files[0] }}</a> 
+        {% endfor %}</div>
+      </span>
+    </h1>
+    <button id="download" class="btn btn-sm btn-secondary" style="float: right; margin-left: 1em;">
+      <i class="fa fa-download"></i>
+    </button>
+    <div id="initialMessage"></div>
+  </div>
+</section>
+
+<section class="babar" id="babar">
+  <button id="home" type="button" class="btn btn-sm btn-link-outline disabled_at_start" disabled>
+    <i class="fa fa-home"></i>
+  </button>
+  <button id="prev" type="button" class="btn btn-sm btn-link-outline disabled_at_start" disabled>
+    <span>undo</span> <i class="fa fa-step-backward"></i>
+  </button>
+  <span id="step-index" class="label label-default">00</span>
+  <button id="next" type="button" class="btn btn-sm btn-link-outline" disabled>
+    <i class="fa fa-step-forward"></i> <span id="next-verb"></span>
+  </button>
+  <span id="desc"></span>
+  <ol class="breadcrumb" style="margin: 5px 0;">
+  </ol>
+  <div class="alert alert-warning alert-dismissible fade in" role="alert" style="display: none">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span> <span class="sr-only">Close</span>
+    </button>
+    <strong>Holy guacamole!</strong> <span id="error"><span>>. 
+  </div>
+</section>
+
+<section>
+  <div class="concept-area">
+    <div class="concept-container">
+      <div class="playground-container"></div>
+    </div>
+  </div>
+</section>
+
+<section style="font-family: monospace">
+  <div class="row">
+    <div id="sample" class="col-lg-6">
+      <div></div>
+    </div>
+    <div id="placeholder" class="col-lg-6">
+    </div>
+  </div>
+
+  <div style="display: none;">
+    <pre id="highlightjstemplate">
+      <code class="xml" style="position:relative;"></code>
+    </pre>
+    <span id="stickycommitidtemplate" class="label label-default" style="position:absolute; bottom:0;right:0;float:right;">CommitId</span>
+  </div>
+<section>
+
+<svg version="1.1" baseProfile="full" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  xmlns:ev="http://www.w3.org/2001/xml-events" width="0" height="0">
+
+    <marker id="triangle" refX="5" refY="5" markerUnits="strokeWidth" fill="#666" markerWidth="4" markerHeight="3" orient="auto"
+    viewBox="0 0 10 10">
+        <path d="M 0 0 L 10 5 L 0 10 z" />
+    </marker>
+    <marker id="faded-triangle" refX="5" refY="5" markerUnits="strokeWidth" fill="#DDD" markerWidth="4" markerHeight="3" orient="auto"
+    viewBox="0 0 10 10">
+        <path d="M 0 0 L 10 5 L 0 10 z" />
+    </marker>
+    <marker id="brown-triangle" refX="5" refY="5" markerUnits="strokeWidth" fill="#663300" markerWidth="4" markerHeight="3" orient="auto"
+    viewBox="0 0 10 10">
+        <path d="M 0 0 L 10 5 L 0 10 z" />
+    </marker>
+</svg>
+
+<section>
+  <div class="modal fade" id="myModal" tabindex="-1">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header" style="font-family: monospace">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            <span class="sr-only">Close</span>
+          </button>
+          <div id="tit" />
+        </div>
+        <div class="modal-body">
+          <div id="con" />
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+</section>
+
+<script data-main="js/main" src="assets/cdnjs.cloudflare.com/ajax/libs/require.js/2.1.4/require.min.js"></script>
+
+<script type="text/javascript">
+
+var _WORKFLOWS_ = [
+  {% for files in datas %}
+    {{ files | jsonify }} ,
+  {% endfor %}
+];
+
+</script>
+
+<script src="js/app.js"></script>
+
+<!-- index.html -->

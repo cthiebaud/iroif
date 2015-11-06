@@ -1,0 +1,52 @@
+{
+  "config":{
+    "title": "Git Flow",
+    "name": "GitFlow",
+    "height": 440,
+    "currentBranch": "master",
+    "commitData": [
+       {"id": "aaaaaaaa","tags": ["origin/develop", "develop", "origin/master", "master"]}
+     ],
+    "originData": [
+       {"id": "aaaaaaaa","tags": ["master", "develop"]},
+    ],
+    "initialMessage": "cf. <a href='links.html'>Useful Links</a>"
+  },
+  "url": "test_data/git-flow-$CommitId.xml",
+  "steps":[
+    { "subject": "hv", "verb": "checkout", "abject": "master"              },
+
+    { "subject": "hv", "verb": "commit"  , "abject": "bbbbbbbb"                         , "desc": "set version 0.0.1 on local master branch"},
+
+    { "subject": "hv", "verb": "checkout", "abject": "develop"             , "chain" : 1, "desc": "prepare for next development iteration: set version 0.0.2-SNAPSHOT on local develop branch"},
+    { "subject": "hv", "verb": "reset"   , "abject": "aaaaaaaa"            , "chain" : 1},
+    { "subject": "hv", "verb": "commit"  , "abject": "eeeeeeee"            },
+
+    { "subject": "cb", "verb": "push"    , "abject": ["origin", "develop"]              , "desc": "push develop branch to remote"},
+
+    { "subject": "hv", "verb": "branch"  , "abject": "release-x"           , "chain" : 1, "desc": "set version 0.0.1-SNAPSHOT on local release branch, perform tests"},
+    { "subject": "hv", "verb": "checkout", "abject": "release-x"           , "chain" : 1},
+    { "subject": "hv", "verb": "reset"   , "abject": "HEAD^"               , "chain" : 1},
+    { "subject": "hv", "verb": "commit"  , "abject": "cccccccc"            },
+    { "subject": "hv", "verb": "checkout", "abject": "release-x"           , "chain" : 1, "desc": "start investigation on local release branch"},
+    { "subject": "hv", "verb": "commit"  , "abject": "dddddddd"                         },
+
+    { "subject": "hv", "verb": "checkout", "abject": "release-x"           , "chain" : 1, "desc": "fix issue on local release branch"},
+    { "subject": "hv", "verb": "commit"  , "abject": "ffffffff"            },
+
+    { "subject": "hv", "verb": "checkout", "abject": "master"                 , "chain" : 1, "desc": "merge fix to master branch"},
+    { "subject": "hv", "verb": "merge"   , "abject": ["release-x","gggggggg"] },
+
+    { "subject": "hv", "verb": "commit"  , "abject": "hhhhhhhh"                 , "desc": "perform the release"},
+
+    { "subject": "hv", "verb": "tag"     , "abject": "release"                  , "chain" : 1, "desc": "tag and push to remote"},
+    { "subject": "cb", "verb": "push"    , "abject": ["origin", "release"]      },
+
+    { "subject": "hv", "verb": "checkout", "abject": "develop"                  , "chain" : 1, "desc": "forward port the fix to development branch"},
+    { "subject": "hv", "verb": "merge"   , "abject": ["gggggggg","iiiiiiii"]      },
+
+    { "subject": "cb", "verb": "push"    , "abject": ["origin", "develop"]      , "chain" : 1, "desc": "push development branch to remote, continue development"},
+    { "subject": "hv", "verb": "commit"  , "abject": "jjjjjjjj"                 },
+  ]
+}
+
