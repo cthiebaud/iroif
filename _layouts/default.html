@@ -25,7 +25,7 @@
   <!-- normalize CSS -->
   <!-- link rel="stylesheet" href="assets/cdnjs.cloudflare.com/ajax/libs/normalize/2.1.0/normalize.css" -->
 
-  <link href="{{ 'css/style.css' | prepend: site.baseurl }}">
+  <link rel="stylesheet" href="{{ 'css/style.css' }}">
 
   <!-- jQuery first, then tether, then Bootstrap JS, then SyntaxHighlighter -->
   <script src="assets/cdnjs.cloudflare.com/ajax/libs/lodash.js/3.10.1/lodash.min.js"></script>
@@ -37,21 +37,21 @@
   <script src="js/javascript-trucs-et-astuces.js"></script>
 
 </head>
-<body style="background: url('img/flowers_bottom_right.png') no-repeat fixed bottom right;">
+<body>
 
 <nav class="navbar navbar-fixed-top navbar-light bg-faded" >
   <button class="navbar-toggler hidden-sm-up navbar-brand" type="button" data-toggle="collapse" data-target="#exCollapsingNavbar2">
     &#9776;
   </button>
   <div class="collapse navbar-toggleable-xs" id="exCollapsingNavbar2">
-    <a class="navbar-brand" href="about.html"  style="height:20px;">
+    <a class="navbar-brand" href="about.html">
     <span>
       <img src="img/flower-rose.png" >
     </span>
     </a>
     <ul class="nav navbar-nav">
       <li class="nav-item {% if page.title == 'Git Workflows' %}active{% endif %}">
-        <a class="nav-link" href="index.html">Git Workflows</a>
+        <a class="nav-link" href="." >Git Workflows</a>
       </li>
       <li class="nav-item {% if page.title == 'Useful Links' %}active{% endif %}">
         <a class="nav-link" href="links.html">Useful Links</a>
@@ -66,7 +66,7 @@
   </div>
 </nav>
 
-<div class="{{ page.dugenou }} container-fluid" style="margin-top:5em;">
+<div class="{{ page.contentClass }} container-fluid">
 {{ content }}
 </div>
 

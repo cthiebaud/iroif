@@ -1,4 +1,23 @@
+---
+layout: 
+---
+
+{% assign datas = site.data | sort  %}
+
+// will be initialized in angular-app.js
+var _ANGULAR_LOCAL_STORAGE_PROXY_ = {
+  get    : function() {},
+  set    : function() {},
+  remove : function() {}
+};
+
+;(function(){
+
 require(['explaingit'], function (explainGit) {
+
+  var _WORKFLOWS_ = [{% for files in datas %}
+    {{ files | jsonify }},{% endfor %}
+  ];
 
   $( document ).ready(function() {
 
@@ -31,16 +50,16 @@ require(['explaingit'], function (explainGit) {
 
     //////////////////////////////////////////////////////////////
 
-    function enginePrefix() {
-      var workflow = getWorkflow();
-      return 'blah' + workflow.config.name + '-';
+    function enginePrefix(nameParam) {
+      var name = nameParam || getWorkflow().config.name;
+      return 'blah' + name + '-';
     }
 
     function currentWorkflowKey(keyParam) {
 
       // keyStore - - - - - - - - - - - >
       var keyStore = {
-        keyHolder: $('#title'),
+        keyHolderSelector: 'section div h1 span#title',
         validate: function(key) {
           key = this.externalize(key);
           for (var w=0 ; w<_WORKFLOWS_.length; w++) {
@@ -51,7 +70,7 @@ require(['explaingit'], function (explainGit) {
           return false;
         },
         externalize: function(key) {
-          if (key.startsWith('#')) {
+          if (key && key.startsWith('#')) {
             return key.substring(1);
           } else {
             return key;
@@ -65,12 +84,14 @@ require(['explaingit'], function (explainGit) {
           }
         },
         get: function() {
-          var internalKey = this.keyHolder.data('id'); 
-          return this.externalize(internalKey);
+          var internalKey = $(this.keyHolderSelector).data('id') || _ANGULAR_LOCAL_STORAGE_PROXY_.get(); 
+          var externalKey = this.externalize(internalKey); 
+          return externalKey;
         },
         set: function(key) {
           var internalKey = this.internalize(key); 
-          this.keyHolder.data('id', internalKey); 
+          $(this.keyHolderSelector).data('id', internalKey); 
+          _ANGULAR_LOCAL_STORAGE_PROXY_.set(internalKey);
           return this.externalize(key);
         }
       }
@@ -113,9 +134,8 @@ require(['explaingit'], function (explainGit) {
       return getWorkflowSteps()[getCurrentStep()]; 
     };
 
-    function initSteps(key) {
+    function initSteps(workflow) {
       $('.breadcrumb').empty();
-      var workflow = getWorkflow(key);
       if (!workflow) {
         return;
       }
@@ -132,11 +152,11 @@ require(['explaingit'], function (explainGit) {
       $('[data-toggle="tooltip"]').tooltip();
       $('#initialMessage').html(workflow.config.initialMessage);
       $('#title').text(workflow.config.title);
-      setStep(0);
+      setStep(0, steps);
     }
 
-    function setStep(s) {
-      var steps = getWorkflowSteps();
+    function setStep(s, stepsParam) {
+      var steps = stepsParam || getWorkflowSteps();
       if (s < 0 || steps.length <= s) {
           return;
       }
@@ -294,7 +314,6 @@ require(['explaingit'], function (explainGit) {
 
               var $highlightjsinstance = $('#highlightjstemplate').clone();
               var $code = $highlightjsinstance.children('code');
-
               var laodingFailed = false;
 
               var toujours = function() {
@@ -392,7 +411,7 @@ require(['explaingit'], function (explainGit) {
     function onCircleClick(event) {
       event.preventDefault();
 
-      d3.selectAll('circle').classed('clicked', false);
+      d3.selectAll('line, polyline, circle').classed('clicked', false);
       d3.select(this).classed('clicked', true);
 
       var modal = false;
@@ -423,6 +442,9 @@ require(['explaingit'], function (explainGit) {
     function onArrowClick(event) {
       event.preventDefault();
 
+      d3.selectAll('line, polyline, circle').classed('clicked', false);
+      d3.select(this).classed('clicked', true);
+
       var commits = getCommitsFromSvgId(this.id);
 
       if (commits) {
@@ -431,8 +453,8 @@ require(['explaingit'], function (explainGit) {
         var $divFrom   = $('<div id="from" class="col-lg-6" />');
         var $divTo     = $('<div id="to"   class="col-lg-6" />');
         var $title     = $('<div class="span" />');
-        var $titleFrom = $('<div style="text-align:right" />').css("color", isHead(commits.from) ? "green" : "gray");
-        var $titleTo   = $('<div style="text-align:left"  />').css("color", isHead(commits.to)   ? "green" : "gray");
+        var $titleFrom = $('<div/>').addClass("text-align-right").css("color", isHead(commits.from) ? "green" : "gray");
+        var $titleTo   = $('<div/>').addClass("text-align-left" ).css("color", isHead(commits.to)   ? "green" : "gray");
 
         if (commits.from) {
           fetchCode(commits.from, $divFrom, $titleFrom);
@@ -449,7 +471,10 @@ require(['explaingit'], function (explainGit) {
         $title.append($titleFrom);
         $('#myModal .modal-header > div#tit').empty().append($title);
 
-        $('#myModal').modal({keyboard: true});
+        var workflow = getWorkflow();
+        if (workflow && workflow.url) {
+          $('#myModal').modal({keyboard: true});
+        }
       }
     }    
 
@@ -461,22 +486,21 @@ require(['explaingit'], function (explainGit) {
       explainGit.reset();
 
       if (workflow) {
-        $('.concept-container').attr('id', enginePrefix()+'Container');
         var config = alternateConfig || workflow.config;
         if (config) {
+          $('.concept-container').attr('id', enginePrefix(workflow.config.name)+'Container');
           workflow.sandbox = explainGit.open($.extend(true, {}, config));
 
-          if (true /* workflow.url */ ) {
-            $('.playground-container').addClass('url');
+          fetchCode();
+
+          $('g.commits circle').off('click').on('click', onCircleClick);
+          $('g.pointers line, g.pointers polyline').off('click').on('click', onArrowClick);
+
+          $('.playground-container').addClass('url');
+
+          if ( workflow.url ) {
             $('#sample').show().children('div').empty();
-
-            fetchCode();
-
-            d3.selectAll('circle').classed('clicked', false);
-            $('g.commits circle').off('click').on('click', onCircleClick);
-            $('g.pointers line, g.pointers polyline').off('click').on('click', onArrowClick);
           } else {
-            $('.playground-container').removeClass('url');
             $('#sample').hide().children('div').empty();
           }
 
@@ -489,11 +513,15 @@ require(['explaingit'], function (explainGit) {
       if (!workflow) {
         return;
       }
-      initSteps(key);
+      initSteps(workflow);
       openConfig(workflow);
     }
-  
-    resetAndOpen(window.location.hash);
+
+    var key = window.location.hash || _ANGULAR_LOCAL_STORAGE_PROXY_.get();
+
+    // console.log('window.location.hash', window.location.hash ? window.location.hash : undefined,  'key', key); 
+    
+    resetAndOpen(key);
 
     //////////////////////////////////////////////////////////////
 
@@ -501,3 +529,4 @@ require(['explaingit'], function (explainGit) {
 
 }); // require 
 
+})();

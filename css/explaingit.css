@@ -1,9 +1,5 @@
 /* styles */
 
-html {
-    height: 100%;
-}
-
 .intro p, .concept-container p {
     padding-top: 10px;
 }
@@ -230,20 +226,6 @@ button:disabled {
     cursor: default !important;
 }
 
-.babar span {
-  font-family : monospace;
-  margin      : 0 .5em;
-}
-
-.babar span#step-index {
-  font-size : 1rem;
-}
-
-.babar span#next-verb,
-.babar span#desc {
-  color : #A52A2A; // brown
-}
-
 #initialMessage {
   font-size : 12px;
 }
@@ -281,7 +263,78 @@ pre {
   cursor: pointer;
 }
 
-.playground-container.url g.commits circle.clicked { // :not(.checked-out)
-  // stroke: black;
+.playground-container.url g.commits circle.clicked, 
+.playground-container.url g.pointers line.clicked, 
+.playground-container.url g.pointers polyline.clicked { 
   stroke-width: 5;
+}
+
+git-workflows-selector .row {
+  margin-top: 1em; 
+  // margin-bottom: 1em;
+}
+
+git-workflows-selector h1 {
+  float: left; 
+  margin: 0 .5rem 1rem 0;
+  padding: 0 .5rem 0 0;
+  // background-color: rgba(232, 232, 232, .5);
+}
+
+git-workflows-selector .dropdown-menu {
+  font-family: monospace
+}
+
+git-workflows-selector button#download {
+  float: right; 
+  margin-left: 1em;
+}
+
+.babar#babar ol.breadcrumb {
+  margin: 5px 0;
+}
+
+.babar#babar .alert {
+  display: none;
+}
+
+.babar#babar span {
+  font-family : monospace;
+  margin      : 0 .5em;
+}
+
+.babar#babar span#step-index {
+  font-size : 1rem;
+}
+
+.babar#babar span#next-verb,
+.babar#babar span#desc {
+  color : #A52A2A; // brown
+}
+
+.monospace {
+  font-family: monospace;
+}
+
+.templates {
+  display: none;
+}
+
+pre.highlightjs code {
+  position:relative;
+}
+
+pre.highlightjs code div.stickycommitid {
+  position:absolute; 
+  bottom:0;
+  right:0;
+  float:right;
+}
+
+.text-align-right {
+    text-align:right;
+}
+
+.text-align-left {
+    text-align:left;
 }

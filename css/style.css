@@ -1,0 +1,31 @@
+html {
+  height: 100%;
+}
+
+body {
+  background: url('../img/flowers_bottom_right.png') no-repeat fixed bottom right;
+}
+
+body > div.container-fluid {
+  margin-top:5em;
+}
+
+body > nav .navbar-brand[href="about.html"] {
+  height: 0;
+}
+
+body > div.container-fluid > h3 {
+  float:left; margin-right: 1em;
+}
+
+body > div.container-fluid > p:last-child {
+  margin-bottom: 200px;  // height of flowers_bottom_right.png
+}
+
+span#indent span {
+  display: block;
+  margin-top: 1em;
+}
+span#indent span {
+  margin-left: 2em;
+}

@@ -8,25 +8,9 @@ layout: default
 
 <link rel="stylesheet" href="css/explaingit.css">
 
-<section style="margin-top: 1em; margin-bottom: 1em;" class="row">
-  <div class="col-lg-12">
-    <h1 style="float: left; margin-right: 1em;">
-      <!-- title will be inserted here -->
-      <span id="title" data-id="{{ datas[0][0] }}"></span>
-      <span class="dropdown">
-        <button class="btn btn-sm btn-secondary dropdown-toggle" type="button" id="workflowDropdown" data-toggle="dropdown"
-          aria-haspopup="true" aria-expanded="false">Change Workflow</button>
-        <div class="dropdown-menu" aria-labelledby="workflowDropdown" style="font-family: monospace">
-        {% for files in datas %}  <a class="dropdown-item" href="#{{ files[0] }}" id="{{ files[0] }}">{{ files[0] }}</a> 
-        {% endfor %}</div>
-      </span>
-    </h1>
-    <button id="download" class="btn btn-sm btn-secondary" style="float: right; margin-left: 1em;">
-      <i class="fa fa-download"></i>
-    </button>
-    <div id="initialMessage"></div>
-  </div>
-</section>
+<section ng-app="gitWorkflowsApplication">
+  <git-workflows-selector></git-workflows-selector>
+</section> <!-- ng-app="gitWorkflowsApplication" -->
 
 <section class="babar" id="babar">
   <button id="home" type="button" class="btn btn-sm btn-link-outline disabled_at_start" disabled>
@@ -40,9 +24,9 @@ layout: default
     <i class="fa fa-step-forward"></i> <span id="next-verb"></span>
   </button>
   <span id="desc"></span>
-  <ol class="breadcrumb" style="margin: 5px 0;">
+  <ol class="breadcrumb">
   </ol>
-  <div class="alert alert-warning alert-dismissible fade in" role="alert" style="display: none">
+  <div class="alert alert-warning alert-dismissible fade in" role="alert">
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
       <span aria-hidden="true">&times;</span> <span class="sr-only">Close</span>
     </button>
@@ -56,9 +40,27 @@ layout: default
       <div class="playground-container"></div>
     </div>
   </div>
+
+  <svg version="1.1" baseProfile="full" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:ev="http://www.w3.org/2001/xml-events" width="0" height="0">
+
+      <marker id="triangle" refX="5" refY="5" markerUnits="strokeWidth" fill="#666" markerWidth="4" markerHeight="3" orient="auto"
+      viewBox="0 0 10 10">
+          <path d="M 0 0 L 10 5 L 0 10 z" />
+      </marker>
+      <marker id="faded-triangle" refX="5" refY="5" markerUnits="strokeWidth" fill="#DDD" markerWidth="4" markerHeight="3" orient="auto"
+      viewBox="0 0 10 10">
+          <path d="M 0 0 L 10 5 L 0 10 z" />
+      </marker>
+      <marker id="brown-triangle" refX="5" refY="5" markerUnits="strokeWidth" fill="#663300" markerWidth="4" markerHeight="3" orient="auto"
+      viewBox="0 0 10 10">
+          <path d="M 0 0 L 10 5 L 0 10 z" />
+      </marker>
+  </svg>
+
 </section>
 
-<section style="font-family: monospace">
+<section class="monospace">
   <div class="row">
     <div id="sample" class="col-lg-6">
       <div></div>
@@ -66,37 +68,20 @@ layout: default
     <div id="placeholder" class="col-lg-6">
     </div>
   </div>
+</section>
 
-  <div style="display: none;">
-    <pre id="highlightjstemplate">
-      <code class="xml" style="position:relative;"></code>
+<section>
+  <div class="templates">
+    <pre id="highlightjstemplate" class="highlightjs">
+      <code class="xml"></code>
     </pre>
-    <span id="stickycommitidtemplate" class="label label-default" style="position:absolute; bottom:0;right:0;float:right;">CommitId</span>
+    <div id="stickycommitidtemplate" class="stickycommitid label label-default">CommitId</div>
   </div>
-<section>
 
-<svg version="1.1" baseProfile="full" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-  xmlns:ev="http://www.w3.org/2001/xml-events" width="0" height="0">
-
-    <marker id="triangle" refX="5" refY="5" markerUnits="strokeWidth" fill="#666" markerWidth="4" markerHeight="3" orient="auto"
-    viewBox="0 0 10 10">
-        <path d="M 0 0 L 10 5 L 0 10 z" />
-    </marker>
-    <marker id="faded-triangle" refX="5" refY="5" markerUnits="strokeWidth" fill="#DDD" markerWidth="4" markerHeight="3" orient="auto"
-    viewBox="0 0 10 10">
-        <path d="M 0 0 L 10 5 L 0 10 z" />
-    </marker>
-    <marker id="brown-triangle" refX="5" refY="5" markerUnits="strokeWidth" fill="#663300" markerWidth="4" markerHeight="3" orient="auto"
-    viewBox="0 0 10 10">
-        <path d="M 0 0 L 10 5 L 0 10 z" />
-    </marker>
-</svg>
-
-<section>
   <div class="modal fade" id="myModal" tabindex="-1">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
-        <div class="modal-header" style="font-family: monospace">
+        <div class="modal-header monospace">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
             <span class="sr-only">Close</span>
@@ -112,17 +97,13 @@ layout: default
 </section>
 
 <script data-main="js/main" src="assets/cdnjs.cloudflare.com/ajax/libs/require.js/2.1.4/require.min.js"></script>
-
-<script type="text/javascript">
-
-var _WORKFLOWS_ = [
-  {% for files in datas %}
-    {{ files | jsonify }} ,
-  {% endfor %}
-];
-
-</script>
+<script data-main="js/main" src="assets/cdnjs.cloudflare.com/ajax/libs/angular/1.4.7/angular.js"></script>
+<script data-main="js/main" src="assets/cdnjs.cloudflare.com/ajax/libs/angular-local-storage/0.2.3/dist/angular-local-storage.js"></script>
 
 <script src="js/app.js"></script>
+<script src="js/angular-app.js"></script>
+
+<script type="text/javascript">
+</script>
 
 <!-- index.html -->

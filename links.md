@@ -1,7 +1,7 @@
 ---
 title: Useful Links
 layout: default
-dugenou: container
+contentClass: container
 ---
 
 ## Git-Flow

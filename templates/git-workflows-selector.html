@@ -1,0 +1,30 @@
+---
+layout:
+---
+
+{% assign datas = site.data | sort  %}
+
+<div class="row">
+  <div class="col-lg-12">
+    <h1>
+      <span id="title" data-id="{{ datas[0][0] }}"><!-- title will be inserted here --></span>
+      <span class="dropdown">
+        <button class="btn btn-sm btn-secondary dropdown-toggle" 
+                type="button" 
+                id="workflowDropdown" 
+                data-toggle="dropdown"
+                aria-haspopup="true" 
+                aria-expanded="false">
+          Change Workflow
+        </button>
+        <div class="dropdown-menu" aria-labelledby="workflowDropdown" >{% for files in datas %}
+          <a class="dropdown-item" href="#{{ files[0] }}" id="{{ files[0] }}">{{ files[0] }}</a>{% endfor %}
+        </div>
+      </span>
+    </h1>
+    <button id="download" class="btn btn-sm btn-secondary" >
+      <i class="fa fa-download"></i>
+    </button>
+    <div id="initialMessage"></div>
+  </div>
+</div>
