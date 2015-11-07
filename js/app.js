@@ -27,11 +27,6 @@ require(['explaingit'], function (explainGit) {
       resetAndOpen();
     });
 
-    $('#download').off('click').on('click', function(event) {
-      event.preventDefault();
-      alert("not yet");
-    });
-
     $('#workflowDropdown').dropdown();
 
     var workflows = {};
@@ -84,14 +79,14 @@ require(['explaingit'], function (explainGit) {
           }
         },
         get: function() {
-          var internalKey = $(this.keyHolderSelector).data('id') || _ANGULAR_LOCAL_STORAGE_PROXY_.get(); 
+          var internalKey = $(this.keyHolderSelector).data('id') || _ANGULAR_LOCAL_STORAGE_PROXY_.get("key"); 
           var externalKey = this.externalize(internalKey); 
           return externalKey;
         },
         set: function(key) {
           var internalKey = this.internalize(key); 
           $(this.keyHolderSelector).data('id', internalKey); 
-          _ANGULAR_LOCAL_STORAGE_PROXY_.set(internalKey);
+          _ANGULAR_LOCAL_STORAGE_PROXY_.set("key", internalKey);
           return this.externalize(key);
         }
       }
@@ -489,7 +484,7 @@ require(['explaingit'], function (explainGit) {
       if (workflow) {
         var config = alternateConfig || workflow.config;
         if (config) {
-          $('.concept-container').attr('id', enginePrefix(workflow.config.name)+'Container');
+          $('.concept-container').attr('id', enginePrefix(workflow.config.name) + 'Container');
           workflow.sandbox = explainGit.open($.extend(true, {}, config));
 
           fetchCode();
@@ -518,7 +513,7 @@ require(['explaingit'], function (explainGit) {
       openConfig(workflow);
     }
 
-    var key = window.location.hash || _ANGULAR_LOCAL_STORAGE_PROXY_.get();
+    var key = window.location.hash || _ANGULAR_LOCAL_STORAGE_PROXY_.get("key");
 
     // console.log('window.location.hash', window.location.hash ? window.location.hash : undefined,  'key', key); 
     

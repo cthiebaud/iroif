@@ -13,16 +13,16 @@
       var kiki = 'worflow-key';
 
       _ANGULAR_LOCAL_STORAGE_PROXY_ = {
-        get:    function()         { return localStorageService.get(kiki          ); },
-        set:    function(keyParam) { localStorageService.set       (kiki, keyParam); },
-        remove: function(keyParam) { localStorageService.remove    (kiki          ); }
+        get:    function(key)        { return localStorageService.get(key          ); },
+        set:    function(key, value) { localStorageService.set       (key, value); },
+        remove: function(key)        { localStorageService.remove    (key          ); }
       };
 
     }];
     
     return {
       restrict     : 'E',
-      templateUrl  : 'templates/git-workflows-selector.html',
+      // templateUrl  : 'templates/git-workflows-selector.html',
       controller   : controller,
       controllerAs : 'ctrl',
     };

@@ -1,8 +1,9 @@
 {
   "config":{
     "title": "Fiori Release",
-    "name": "Fiori",
+    "name": "fiori",
     "height": 360,
+    "currentBranch": "master",
     "commitData": [
        {"id": "00000000","tags": ["origin/master", "master"]}
      ],
@@ -11,7 +12,7 @@
     ],
     "initialMessage": "cf. this absolutely unrelated <a href='catleyas.html'>text</a>."
   },
-  "url": "test_data/fiori-$CommitId.xml",
+  "url": "data/fiori-$CommitId.xml",
   "steps":[
     { "subject": "hv", "verb": "checkout",  "abject": "master"                      },
     { "subject": "hv", "verb": "commit"  ,  "abject": "11111111"                    , "desc": "Prepare release: set version to 0.0.1, then commit to local repository (Maven JGit-Flow Plugin)."},

@@ -8,9 +8,35 @@ layout: default
 
 <link rel="stylesheet" href="css/explaingit.css">
 
-<section ng-app="gitWorkflowsApplication">
-  <git-workflows-selector></git-workflows-selector>
-</section> <!-- ng-app="gitWorkflowsApplication" -->
+<git-workflows-selector ng-app="gitWorkflowsApplication">
+</git-workflows-selector>
+
+<section id="jumbo">
+  <div class="row">
+    <div class="col-lg-12">
+      <h1>
+        <span id="title" data-id="{{ datas[0][0] }}"><!-- title will be inserted here --></span>
+        <span class="dropdown">
+          <button class="btn btn-sm btn-secondary dropdown-toggle" 
+                  type="button" 
+                  id="workflowDropdown" 
+                  data-toggle="dropdown"
+                  aria-haspopup="true" 
+                  aria-expanded="false">
+            Change Workflow
+          </button>
+          <div class="dropdown-menu" aria-labelledby="workflowDropdown" >{% for files in datas %}
+            <a class="dropdown-item" href="#{{ files[0] }}" id="{{ files[0] }}">{{ files[0] }}</a>{% endfor %}
+          </div>
+        </span>
+      </h1>
+      <button id="download" class="btn btn-sm btn-secondary" >
+        <i class="fa fa-download"></i>
+      </button>
+      <div id="initialMessage"></div>
+    </div>
+  </div>
+</section>
 
 <section class="babar" id="babar">
   <button id="home" type="button" class="btn btn-sm btn-link-outline disabled_at_start" disabled>
@@ -40,7 +66,6 @@ layout: default
       <div class="playground-container"></div>
     </div>
   </div>
-
   <svg version="1.1" baseProfile="full" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
     xmlns:ev="http://www.w3.org/2001/xml-events" width="0" height="0">
 
@@ -57,7 +82,6 @@ layout: default
           <path d="M 0 0 L 10 5 L 0 10 z" />
       </marker>
   </svg>
-
 </section>
 
 <section class="monospace">

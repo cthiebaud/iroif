@@ -1,7 +1,7 @@
 {
   "config":{
     "title": "Git Flow",
-    "name": "GitFlow",
+    "name": "git-flow",
     "height": 440,
     "currentBranch": "master",
     "commitData": [
@@ -12,7 +12,7 @@
     ],
     "initialMessage": "cf. <a href='links.html'>Useful Links</a>"
   },
-  "url": "test_data/git-flow-$CommitId.xml",
+  "url": "data/git-flow-$CommitId.xml",
   "steps":[
     { "subject": "hv", "verb": "checkout", "abject": "master"              },
 

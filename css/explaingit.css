@@ -267,35 +267,36 @@ pre {
   cursor: pointer;
 }
 
-.playground-container.url g.commits circle.clicked, 
+.playground-container.url g.comits circle.clicked, 
 .playground-container.url g.pointers line.clicked, 
 .playground-container.url g.pointers polyline.clicked { 
   stroke-width: 5;
 }
 
-git-workflows-selector .row {
+#jumbo .row {
   margin-top: 1em; 
-  // margin-bottom: 1em;
+  margin-bottom: .5em;
 }
 
-git-workflows-selector h1 {
+#jumbo h1 {
   float: left; 
   margin: 0 .5rem 1rem 0;
   padding: 0 .5rem 0 0;
   // background-color: rgba(232, 232, 232, .5);
 }
 
-git-workflows-selector .dropdown-menu {
+#jumbo .dropdown-menu {
   font-family: monospace
 }
 
-git-workflows-selector button#download {
+#jumbo button#download {
   float: right; 
   margin-left: 1em;
 }
 
 .babar#babar ol.breadcrumb {
-  margin: 5px 0;
+  margin: .5rem 0;
+  padding: .5rem 0 .5rem .5rem;
 }
 
 .babar#babar .alert {
@@ -305,6 +306,10 @@ git-workflows-selector button#download {
 .babar#babar span {
   font-family : monospace;
   margin      : 0 .5em;
+}
+
+.babar#babar span#desc {
+  overflow:hidden;
 }
 
 .babar#babar span#step-index {
