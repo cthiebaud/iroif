@@ -267,7 +267,7 @@ pre {
   cursor: pointer;
 }
 
-.playground-container.url g.comits circle.clicked, 
+.playground-container.url g.commits circle.clicked, 
 .playground-container.url g.pointers line.clicked, 
 .playground-container.url g.pointers polyline.clicked { 
   stroke-width: 5;
