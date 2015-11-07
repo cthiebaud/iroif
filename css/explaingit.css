@@ -1,5 +1,9 @@
 /* styles */
 
+body {
+  background-color: #ffffff;
+}
+
 .intro p, .concept-container p {
     padding-top: 10px;
 }

@@ -253,6 +253,7 @@ require(['explaingit'], function (explainGit) {
       if (true /* workflow.url */ ) {
         fetchCode();
         d3.selectAll('circle').classed('clicked', false);
+        d3.selectAll('line, polyline, circle').classed('clicked', false);
         $('g.commits circle').off('click').on('click', onCircleClick);
         $('g.pointers line, g.pointers polyline').off('click').on('click', onArrowClick);
       }
