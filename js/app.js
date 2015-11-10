@@ -21,6 +21,13 @@ require(['explaingit'], function (explainGit) {
 
   $( document ).ready(function() {
 
+    var codeMirrorEditor = CodeMirror.fromTextArea(document.getElementById("codemirror"), {
+          // lineNumbers: true,
+          mode: "text/xml",
+          matchBrackets: true,
+          scrollbarStyle: null
+        });
+
     // miscelleanous inits ---------------------->
     $('#home').off('click').on('click', function(event) {
       event.preventDefault();
@@ -246,9 +253,9 @@ require(['explaingit'], function (explainGit) {
       }
 
       if (true /* workflow.url */ ) {
-        fetchCode();
-        d3.selectAll('circle').classed('clicked', false);
-        d3.selectAll('line, polyline, circle').classed('clicked', false);
+
+        onCircleClick();
+
         $('g.commits circle').off('click').on('click', onCircleClick);
         $('g.pointers line, g.pointers polyline').off('click').on('click', onArrowClick);
       }
@@ -275,7 +282,7 @@ require(['explaingit'], function (explainGit) {
 
     //////////////////////////////////////////////////////////////
     
-    function fetchCode(commitParam, $elementParam, $title) {
+    function fetchCode(commitParam, done, fail, always) {
       var workflow = getWorkflow();
       if (workflow /* && workflow.url */ ) {
 
@@ -291,79 +298,37 @@ require(['explaingit'], function (explainGit) {
             var url;
             if (workflow.url) {
               url = workflow.url.replace(/\$CommitId/gi, commit);
-              if ($title) {
-                $title.empty().text(url);
-              }
             }
 
-            var crossDomain = false;
-            if (url) {
-              if (url.indexOf('//') != -1 && url.indexOf(window.location.hostname) == -1) {
-                crossDomain = true;
-                var encodedURL = encodeURI(url);
-                url = "https://development.neo.ondemand.com/proxy.jsp?"+encodedURL;
-              }
-            }
-
-            var $element = $elementParam || $('#sample div:last-child');
-            if ($element) {
-
-              var $highlightjsinstance = $('#highlightjstemplate').clone();
-              var $code = $highlightjsinstance.children('code');
-              var laodingFailed = false;
-
-              var toujours = function() {
-                $code.each(function(i, block) {
-                  hljs.highlightBlock(block);
-                  $stickycommitid = $('#stickycommitidtemplate').clone();
-                  $stickycommitid.text(commit);
-                  $(block).append($stickycommitid);
-                  if (isHead(commit, workflow)) {
-                    $(block).addClass('head');
-                  } else {
-                    $(block).removeClass('head');
-                  }
-                  if (laodingFailed) {
-                    $(block).addClass('alert-warning');
-                  } else {
-                    $(block).removeClass('alert-warning');
-                  }
-                });
-                // $highlightjsinstance.show();
-                // $element.show();
-                $element.empty().append($highlightjsinstance);
-              };
-
-              if (!url) {
-                toujours();
-              } else {
-                $.ajax( {
-                  url: url,
-                  crossDomain: crossDomain,
-                }).done(function(data) {
-                  var qwe = data;
-                  if (data.documentElement) {
-                    qwe = new XMLSerializer().serializeToString(data.documentElement);
-                  }
-
-                  laodingFailed = false;
-
-                  $code.empty().text(qwe);
-
-                }).fail(function( jqXHR, textStatus, errorThrown ) {
-
-                  laodingFailed = true;
-
-                  $code.text(
-                    "<error>\n" +
-                    "  <commit>" + commit + "</commit>\n" +
-                    "  <url>" + url + "</url>\n" +
-                    "  <textStatus>" + textStatus + "</textStatus>\n" +
-                    "  <errorThrown>" + errorThrown + "</errorThrown>\n" +
-                    "</error>"
-                  );
-                }).always(toujours);
-              }
+            if (!url) {
+              always();
+            } else {
+              $.ajax( {
+                url: url,
+              }).done(function(data) {
+                var content = data;
+                if (data.documentElement) {
+                  content = new XMLSerializer().serializeToString(data.documentElement);
+                }
+                if (done) {
+                  done(content);
+                }
+              }).fail(function( jqXHR, textStatus, errorThrown ) {
+                var errorAsXml = 
+                  "<error>\n" +
+                  "  <commit>" + commit + "</commit>\n" +
+                  "  <url>" + url + "</url>\n" +
+                  "  <textStatus>" + textStatus + "</textStatus>\n" +
+                  "  <errorThrown>" + errorThrown + "</errorThrown>\n" +
+                  "</error>";
+                if (fail) {
+                  fail(errorAsXml);
+                }
+              }).always(function() {
+                if (always) {
+                  always(workflow, commit);
+                }
+              });
             }
           }
         }
@@ -404,74 +369,112 @@ require(['explaingit'], function (explainGit) {
       return {from:from, to: to};
     }
 
+    var last_commit;
+
     function onCircleClick(event) {
-      event.preventDefault();
 
-      d3.selectAll('line, polyline, circle').classed('clicked', false);
-      d3.select(this).classed('clicked', true);
+      $('#oneFile').show();
+      $('#twoFiles').hide();
 
-      var modal = false;
-
-      var commits = getCommitsFromSvgId(this.id);
-
-      if (commits) {
-        if (!modal) {
-          if (commits.from) {
-            fetchCode(commits.from);
-          }
+      var to;
+      if (event) {
+        event.preventDefault();
+        if (event.shiftKey) {
+          to = last_commit;
+          d3.selectAll('line, polyline').classed('clicked', false);
         } else {
-          var $content = $('<div/>');
-          var $title   = $('<div/>').css('color', isHead(commits.from) ? "green" : "gray");
-
-          if (commits.from) {
-            fetchCode(commits.from, $content, $title);
-          }
-
-          $('#myModal .modal-body   > div#con').empty().append($content);
-          $('#myModal .modal-header > div#tit').empty().append($title);
-
-          $('#myModal').modal({keyboard: true});
+          d3.selectAll('line, polyline, circle').classed('clicked', false);
         }
+        d3.select(this).classed('clicked', true);
+      } else {
+        d3.selectAll('line, polyline, circle').classed('clicked', false);
+      }
+
+      var commit;
+      if (this.id) {
+        commits = getCommitsFromSvgId(this.id);
+
+        if (to) {
+          commits.to = to;
+          showDiff(commits);
+          return;
+        } else {
+          commit = commits.from;
+        }
+      }
+
+      var $cm = $('#oneFile .CodeMirror-code');
+      fetchCode(
+        commit, 
+        function(content) {
+          $cm.removeClass('alert-warning');
+          codeMirrorEditor.setValue(content);
+        }, 
+        function(error) {
+          $cm.addClass('alert-warning');
+          codeMirrorEditor.setValue(error);
+        }, 
+        function(workflow, commit) {
+          last_commit = commit;
+          $stickycommitid = $('#stickycommitidtemplate').clone();
+          $stickycommitid.text(commit);
+
+          var $cs = $('#oneFile .CodeMirror-scroll');
+          $cs.append($stickycommitid);
+
+          if (isHead(commit, workflow)) {
+            $cm.addClass('head');
+          } else {
+            $cm.removeClass('head');
+          }
+        }
+      );
+
+    }    
+
+    function showDiff(commits) {
+      if (commits && commits.from && commits.to) {
+
+        $('#oneFile').hide();
+        $('#twoFiles').show();
+
+        $('#compare').mergely({
+          cmsettings: { readOnly: true, lineNumbers: false },
+        });
+
+        fetchCode(
+          commits.from, 
+          function(content) {
+            $('#compare').mergely('rhs', content)
+          }, function (error) {
+            $('#compare').mergely('rhs', error)
+          }, function (workflow, commit) {
+          }
+        );
+        fetchCode(
+          commits.to, 
+          function(content) {
+            $('#compare').mergely('lhs', content)
+          }, function (error) {
+            $('#compare').mergely('lhs', error)
+          }, function (workflow, commit) {
+          }
+        );
       }
     }    
 
     function onArrowClick(event) {
-      event.preventDefault();
-
       d3.selectAll('line, polyline, circle').classed('clicked', false);
-      d3.select(this).classed('clicked', true);
+
+      if (event) {
+        event.preventDefault();
+        d3.select(this).classed('clicked', true);
+      }
 
       var commits = getCommitsFromSvgId(this.id);
 
-      if (commits) {
+      showDiff(commits);
 
-        var $row       = $('<div class="row" />');
-        var $divFrom   = $('<div id="from" class="col-lg-6" />');
-        var $divTo     = $('<div id="to"   class="col-lg-6" />');
-        var $title     = $('<div class="span" />');
-        var $titleFrom = $('<div/>').addClass("text-align-right").css("color", isHead(commits.from) ? "green" : "gray");
-        var $titleTo   = $('<div/>').addClass("text-align-left" ).css("color", isHead(commits.to)   ? "green" : "gray");
-
-        if (commits.from) {
-          fetchCode(commits.from, $divFrom, $titleFrom);
-        }
-        if (commits.to) {
-          fetchCode(commits.to, $divTo, $titleTo);
-        }
-
-        $row.append($divTo);
-        $row.append($divFrom);
-        $('#myModal .modal-body > div#con').empty().append($row);
-
-        $title.append($titleTo);
-        $title.append($titleFrom);
-        $('#myModal .modal-header > div#tit').empty().append($title);
-
-        var workflow = getWorkflow();
-        if (workflow && workflow.url) {
-          $('#myModal').modal({keyboard: true});
-        }
-      }
     }    
 
     //////////////////////////////////////////////////////////////
@@ -487,17 +490,17 @@ require(['explaingit'], function (explainGit) {
           $('.concept-container').attr('id', enginePrefix(workflow.config.name) + 'Container');
           workflow.sandbox = explainGit.open($.extend(true, {}, config));
 
-          fetchCode();
+          $('.playground-container').addClass('url');
 
           $('g.commits circle').off('click').on('click', onCircleClick);
           $('g.pointers line, g.pointers polyline').off('click').on('click', onArrowClick);
 
-          $('.playground-container').addClass('url');
+          onCircleClick();
 
           if ( workflow.url ) {
-            $('#sample').show().children('div').empty();
+            $('#sample').show();
           } else {
-            $('#sample').hide().children('div').empty();
+            $('#sample').hide();
           }
 
         }

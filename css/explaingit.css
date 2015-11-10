@@ -234,6 +234,29 @@ button:disabled {
   font-size : 12px;
 }
 
+#oneFile .CodeMirror-code {
+  overflow-x: hidden; 
+  background-color: #EEEEEE;
+}
+
+#oneFile .CodeMirror-code.alert-warning {
+    background-color: #fcf8e3 !important;
+}
+
+#oneFile .CodeMirror-code.head:not(.alert-warning) {
+    background-color: rgba(234, 255, 234, .8); // #eaffea;
+}
+
+#oneFile .CodeMirror-scroll {
+  position:relative;
+}
+#oneFile .CodeMirror-scroll > div.stickycommitid {
+  position:absolute; 
+  top:10%;
+  right:0;
+}
+
+
 .hljs {
   overflow-x: hidden; 
 }
