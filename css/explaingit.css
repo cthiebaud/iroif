@@ -234,28 +234,48 @@ button:disabled {
   font-size : 12px;
 }
 
-#oneFile .CodeMirror-code {
+#oneFile .CodeMirror {
+  height: 100%;
+}
+
+#oneFile .CodeMirror-code, 
+#twoFiles .CodeMirror-code {
   overflow-x: hidden; 
   background-color: #EEEEEE;
 }
 
-#oneFile .CodeMirror-code.alert-warning {
+#oneFile .CodeMirror-code.alert-warning,
+#twoFiles .CodeMirror-code.alert-warning {
     background-color: #fcf8e3 !important;
 }
 
-#oneFile .CodeMirror-code.head:not(.alert-warning) {
+#oneFile .CodeMirror-code.head:not(.alert-warning),
+#twoFiles .CodeMirror-code.head:not(.alert-warning) {
     background-color: rgba(234, 255, 234, .8); // #eaffea;
 }
 
-#oneFile .CodeMirror-scroll {
+#oneFile div#sample {
   position:relative;
 }
-#oneFile .CodeMirror-scroll > div.stickycommitid {
+
+#oneFile div#sample > div.stickycommitid {
+  background-color: #818a91;  
   position:absolute; 
-  top:10%;
+  bottom:0;
   right:0;
 }
 
+#oneFile, #oneFile > div, #oneFile > div div {
+  background-color: transparent;
+}
+
+div#compare > div#compare-editor-rhs {
+  height: 100%;
+}
+
+.mergely-column{
+  border: none;
+}
 
 .hljs {
   overflow-x: hidden; 

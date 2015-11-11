@@ -4,14 +4,14 @@ layout:
 
 {% assign datas = site.data | sort  %}
 
-// will be initialized in angular-app.js
+// will be initialized by angular-app.js
 var _ANGULAR_LOCAL_STORAGE_PROXY_ = {
   get    : function() {},
   set    : function() {},
   remove : function() {}
 };
 
-;(function(){
+(function(){
 
 require(['explaingit'], function (explainGit) {
 
@@ -21,14 +21,26 @@ require(['explaingit'], function (explainGit) {
 
   $( document ).ready(function() {
 
-    var codeMirrorEditor = CodeMirror.fromTextArea(document.getElementById("codemirror"), {
-          // lineNumbers: true,
-          mode: "text/xml",
-          matchBrackets: true,
-          scrollbarStyle: null
-        });
-
     // miscelleanous inits ---------------------->
+    var codeMirrorEditor = CodeMirror.fromTextArea(document.getElementById("codemirror"), {
+        readOnly: true, 
+        lineNumbers: false, 
+        mode: 'text/xml',
+        scrollbarStyle: null
+    });
+
+    $('div#compare').mergely({
+      editor_height: "100%",
+      line_numbers: false,
+      sidebar: false,
+      cmsettings: { 
+        readOnly: true, 
+        lineNumbers: false, 
+        mode: 'text/xml',
+        scrollbarStyle: null
+      },
+    });
+
     $('#home').off('click').on('click', function(event) {
       event.preventDefault();
       resetAndOpen();
@@ -61,10 +73,10 @@ require(['explaingit'], function (explainGit) {
 
       // keyStore - - - - - - - - - - - >
       var keyStore = {
-        keyHolderSelector: 'section div h1 span#title',
+        keyHolderSelector: 'section#jumbo > div > div > h1 > span#title',
         validate: function(key) {
           key = this.externalize(key);
-          for (var w=0 ; w<_WORKFLOWS_.length; w++) {
+          for (var w=0; w<_WORKFLOWS_.length; w++) {
             if (key === _WORKFLOWS_[w][0]) {
               return true;
             }
@@ -419,7 +431,7 @@ require(['explaingit'], function (explainGit) {
           $stickycommitid = $('#stickycommitidtemplate').clone();
           $stickycommitid.text(commit);
 
-          var $cs = $('#oneFile .CodeMirror-scroll');
+          var $cs = $('#oneFile div#sample');
           $cs.append($stickycommitid);
 
           if (isHead(commit, workflow)) {
@@ -438,26 +450,39 @@ require(['explaingit'], function (explainGit) {
         $('#oneFile').hide();
         $('#twoFiles').show();
 
-        $('#compare').mergely({
-          cmsettings: { readOnly: true, lineNumbers: false },
-        });
-
+        var $cm_rhs = $('#twoFiles #compare-editor-rhs .CodeMirror-code');
         fetchCode(
           commits.from, 
           function(content) {
+            $cm_rhs.removeClass('alert-warning');
             $('#compare').mergely('rhs', content)
           }, function (error) {
+            $cm_rhs.addClass('alert-warning');
             $('#compare').mergely('rhs', error)
           }, function (workflow, commit) {
+            if (isHead(commit, workflow)) {
+              $cm_rhs.addClass('head');
+            } else {
+              $cm_rhs.removeClass('head');
+            }
           }
         );
+
+        var $cm_lhs = $('#twoFiles #compare-editor-lhs .CodeMirror-code');
         fetchCode(
           commits.to, 
           function(content) {
+            $cm_lhs.removeClass('alert-warning');
             $('#compare').mergely('lhs', content)
           }, function (error) {
+            $cm_lhs.addClass('alert-warning');
             $('#compare').mergely('lhs', error)
           }, function (workflow, commit) {
+            if (isHead(commit, workflow)) {
+              $cm_lhs.addClass('head');
+            } else {
+              $cm_lhs.removeClass('head');
+            }
           }
         );
       }
