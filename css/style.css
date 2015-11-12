@@ -1,8 +1,10 @@
 html {
   height: 100%;
+  overflow-y: scroll;
+  overflow-x: hidden; /* I do NOT want hz scroll */
 }
-
 body {
+  overflow-y: initial; /* avoid the double scroll */
   background: url('../img/flowers_bottom_right.png') no-repeat fixed bottom right;
 }
 
