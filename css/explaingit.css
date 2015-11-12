@@ -234,7 +234,12 @@ button:disabled {
   font-size : 12px;
 }
 
-#oneFile .CodeMirror {
+.mergely-margin {
+  display: none;
+}
+
+#oneFile .CodeMirror,
+#twoFiles .CodeMirror {
   height: 100%;
 }
 
@@ -254,11 +259,15 @@ button:disabled {
     background-color: rgba(234, 255, 234, .8); // #eaffea;
 }
 
-#oneFile div#sample {
+#oneFile #sample,
+#twoFiles #compare .mergely-column#compare-editor-rhs,
+#twoFiles #compare .mergely-column#compare-editor-lhs {
   position:relative;
 }
 
-#oneFile div#sample > div.stickycommitid {
+#oneFile #sample > div.stickycommitid,
+#twoFiles #compare .mergely-column#compare-editor-rhs > div.stickycommitid,
+#twoFiles #compare .mergely-column#compare-editor-lhs > div.stickycommitid {
   background-color: #818a91;  
   position:absolute; 
   bottom:0;

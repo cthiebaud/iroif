@@ -460,6 +460,12 @@ require(['explaingit'], function (explainGit) {
             $cm_rhs.addClass('alert-warning');
             $('#compare').mergely('rhs', error)
           }, function (workflow, commit) {
+            $stickycommitid = $('#stickycommitidtemplate').clone();
+            $stickycommitid.text(commit).attr('id', "right");
+            var $cs = $('#twoFiles #compare .mergely-column#compare-editor-rhs');
+            $('.stickycommitid#right').remove();
+            $cs.append($stickycommitid);
+
             if (isHead(commit, workflow)) {
               $cm_rhs.addClass('head');
             } else {
@@ -478,6 +484,12 @@ require(['explaingit'], function (explainGit) {
             $cm_lhs.addClass('alert-warning');
             $('#compare').mergely('lhs', error)
           }, function (workflow, commit) {
+            $stickycommitid = $('#stickycommitidtemplate').clone();
+            $stickycommitid.text(commit).attr('id', "left");
+            var $cs = $('#twoFiles #compare .mergely-column#compare-editor-lhs');
+            $('.stickycommitid#left').remove();
+            $cs.append($stickycommitid);
+
             if (isHead(commit, workflow)) {
               $cm_lhs.addClass('head');
             } else {
