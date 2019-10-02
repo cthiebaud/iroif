@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Required meta tags always come first -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+  <link rel="icon" type="image/png" href="favicon-32x32.png" sizes="32x32" />
+  <link rel="icon" type="image/png" href="favicon-16x16.png" sizes="16x16" />
+
+  {% include open-graph.html %}
+
+  <title>{% if page.title %}{{ page.title }} &middot; {% endif %}{{ site.title }}</title>
+  
+  <!-- Botstrap Tooltips rely on on the 3rd party library tether for positioning. You must include tether.min.js before bootstrap.js in order for tooltips to work!  -->
+  <link rel="stylesheet" href="assets/cdnjs.cloudflare.com/ajax/libs/tether/1.1.1/css/tether-theme-arrows.min.css">  
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="assets/cdn.rawgit.com/twbs/bootstrap/v4-dev/dist/css/bootstrap.css">
+
+  <!-- Font Awesome CSS -->
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+  <!-- highlight CSS -->
+  <link rel="stylesheet" href="assets/cdnjs.cloudflare.com/ajax/libs/highlight.js/8.9.1/styles/default.min.css">
+
+  <!-- normalize CSS -->
+  <!-- link rel="stylesheet" href="assets/cdnjs.cloudflare.com/ajax/libs/normalize/2.1.0/normalize.css" -->
+
+  <link rel="stylesheet" href="{{ 'css/style.css' }}">
+
+  <!-- jQuery first, then tether, then Bootstrap JS, then SyntaxHighlighter -->
+  <script src="assets/cdnjs.cloudflare.com/ajax/libs/lodash.js/3.10.1/lodash.min.js"></script>
+  <script src="assets/ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.js"></script>
+  <script src="assets/cdnjs.cloudflare.com/ajax/libs/tether/1.1.1/js/tether.min.js"></script>
+  <script src="assets/cdn.rawgit.com/twbs/bootstrap/v4-dev/dist/js/bootstrap.js"></script>
+  <script src="assets/cdnjs.cloudflare.com/ajax/libs/highlight.js/8.9.1/highlight.min.js"></script>
+
+  <script src="js/javascript-trucs-et-astuces.js"></script>
+
+</head>
+<body>
+
+<div class="{{ page.contentClass }} container-fluid">
+{{ content }}
+</div>
+
+<script type="text/javascript">
+</script>
+
+</body>
+</html>
