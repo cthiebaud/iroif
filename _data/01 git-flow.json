@@ -18,7 +18,7 @@
 
     { "subject": "hv", "verb": "commit"  , "abject": "bbbbbbbb"                         , "desc": "set version 0.0.1 on local master branch"},
 
-    { "subject": "hv", "verb": "checkout", "abject": "develop"             , "chain" : 1, "desc": "prepare for next development iteration: set version 0.0.2-SNAPSHOT on local develop branch"},
+    { "subject": "hv", "verb": "checkout", "abject": "develop"             , "chain" : 1, "desc": "prepare for next development iteration: set version 0.1.0-SNAPSHOT on local develop branch"},
     { "subject": "hv", "verb": "reset"   , "abject": "aaaaaaaa"            , "chain" : 1},
     { "subject": "hv", "verb": "commit"  , "abject": "eeeeeeee"            },
 

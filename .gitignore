@@ -6,3 +6,4 @@ _site
 *.log
 node_modules/
 .buildpath
+/_data.backup/
